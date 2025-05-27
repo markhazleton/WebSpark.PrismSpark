@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSpark.PrismSpark", "WebSpark.PrismSpark\WebSpark.PrismSpark.csproj", "{F38E4F2F-66B2-4BCA-BBAC-70119AC7C835}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSpark.PrismSpark.Tests", "WebSpark.PrismSpark.Tests\WebSpark.PrismSpark.Tests.csproj", "{6B42B19F-4C91-4BB2-8E36-C903E19A4CF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F38E4F2F-66B2-4BCA-BBAC-70119AC7C835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F38E4F2F-66B2-4BCA-BBAC-70119AC7C835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F38E4F2F-66B2-4BCA-BBAC-70119AC7C835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F38E4F2F-66B2-4BCA-BBAC-70119AC7C835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B42B19F-4C91-4BB2-8E36-C903E19A4CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B42B19F-4C91-4BB2-8E36-C903E19A4CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B42B19F-4C91-4BB2-8E36-C903E19A4CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B42B19F-4C91-4BB2-8E36-C903E19A4CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7796E57-9CB2-418C-8B09-2BB411FF76E1}
+	EndGlobalSection
+EndGlobal
