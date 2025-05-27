@@ -55,7 +55,7 @@
             - Complete PrismJS port with 20+ language support
             - High-performance tokenization and HTML generation
             - Comprehensive test coverage (51 tests)
-            - Full .NET 8.0 and 9.0 support
+            - Full .NET 9.0 support
             - Enhanced C# idioms and best practices
             - Complete documentation and examples
         </PackageReleaseNotes>
