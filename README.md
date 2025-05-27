@@ -2,22 +2,22 @@
 
 A porting of [PrismJS](https://github.com/PrismJS/prism) to C# or .NET.
 
-All supported language grammars are [here](https://github.com/tatwd/prism-sharp/tree/main/PrismSpark.Core/Languages).
+All supported language grammars are [here](https://github.com/tatwd/prism-sharp/tree/main/WebSpark.PrismSpark/Languages).
 
 ## Getting Started
 
 ### Tokenize Code
 
-Install `PrismSpark.Core` package:
+Install `WebSpark.PrismSpark` package:
 
 ```sh
-dotnet add package PrismSpark.Core --prerelease
+dotnet add package WebSpark.PrismSpark --prerelease
 ```
 
 Then,
 
 ```csharp
-using PrismSpark.Core;
+using WebSpark.PrismSpark;
 
 var text = @"<p>Hello world!</p>";
 var grammar = LanguageGrammars.Html; // or defined yourself
@@ -35,7 +35,7 @@ dotnet add package PrismSpark.Highlighting.HTML --prerelease
 Then,
 
 ```csharp
-using PrismSpark.Core;
+using WebSpark.PrismSpark;
 using PrismSpark.Highlighting.HTML;
 
 var text = @"<p>Hello world!</p>";
@@ -55,14 +55,14 @@ This section provides comprehensive instructions for integrating PrismSpark into
 1. Install the required packages in your MVC project:
 
 ```sh
-dotnet add package PrismSpark.Core --prerelease
+dotnet add package WebSpark.PrismSpark --prerelease
 dotnet add package PrismSpark.Highlighting.HTML --prerelease
 ```
 
 2. For dependency injection support, add to your `Program.cs` (or `Startup.cs` for older .NET versions):
 
 ```csharp
-using PrismSpark.Core;
+using WebSpark.PrismSpark;
 using PrismSpark.Highlighting.HTML;
 
 // Register PrismSpark services
@@ -78,7 +78,7 @@ Create a service or use PrismSpark directly in your controllers:
 
 ```csharp
 using Microsoft.AspNetCore.Mvc;
-using PrismSpark.Core;
+using WebSpark.PrismSpark;
 using PrismSpark.Highlighting.HTML;
 
 public class CodeController : Controller
@@ -167,7 +167,7 @@ public interface ICodeHighlightingService
 }
 
 // Services/CodeHighlightingService.cs
-using PrismSpark.Core;
+using WebSpark.PrismSpark;
 using PrismSpark.Highlighting.HTML;
 
 public class CodeHighlightingService : ICodeHighlightingService
