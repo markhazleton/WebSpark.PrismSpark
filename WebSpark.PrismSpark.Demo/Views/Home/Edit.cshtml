@@ -1,0 +1,100 @@
+@{
+    ViewData["Title"] = "Live Code Editor - PrismSpark Demo";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Live Code Editor</h1>
+    <p>Interactive code editor with syntax highlighting and validation using <a
+            href="https://github.com/MarkHazleton/WebSpark.PrismSpark">WebSpark.PrismSpark</a></p>
+    <nav>
+        <a asp-action="Index" class="btn btn-outline-primary">← Back to Examples</a>
+    </nav>
+</div>
+
+<div class="container">
+    <!-- Statistics Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number" id="total-validations">0</div>
+            <div class="stat-label">Total Validations</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="success-rate">0%</div>
+            <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="avg-time">0ms</div>
+            <div class="stat-label">Avg Execution Time</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="languages-tested">7</div>
+            <div class="stat-label">Languages Supported</div>
+        </div>
+    </div>
+
+    <!-- Live Editor Section -->
+    <div class="live-editor-section">
+        <h2>Live Code Editor</h2>
+        <div class="editor-controls">
+            <select id="language-selector" class="form-select">
+                <option value="json">JSON</option>
+                <option value="csharp">C#</option>
+                <option value="javascript">JavaScript</option>
+                <option value="python">Python</option>
+                <option value="sql">SQL</option>
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+            </select>
+            <button class="btn btn-primary" onclick="highlightLiveCode()" title="Apply syntax highlighting">
+                <i class="bi bi-brush"></i> Highlight
+            </button>
+            <button class="btn btn-success" onclick="validateLiveCode()" title="Validate code syntax">
+                <i class="bi bi-check-circle"></i> Validate
+            </button>
+            <button class="btn btn-info" onclick="formatLiveCode()" title="Format and beautify code">
+                <i class="bi bi-code-slash"></i> Format
+            </button>
+            <button class="btn btn-warning" onclick="clearEditor()" title="Clear all code">
+                <i class="bi bi-eraser"></i> Clear
+            </button>
+        </div>
+        <textarea id="live-editor" class="form-control" rows="15"
+            placeholder="Enter your code here... (Ctrl+Shift+F to format)"></textarea>
+        <div id="live-preview" class="code-preview"></div>
+        <div id="live-result" class="validation-result"></div>
+    </div>
+</div>
+
+<!-- Format Result Modal -->
+<div class="modal fade" id="formatModal" tabindex="-1" aria-labelledby="formatModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formatModalLabel">Formatted Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span id="format-language-display" class="badge bg-primary"></span>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="copyFormattedCode()"
+                            title="Copy formatted code to clipboard">
+                            <i class="bi bi-clipboard"></i> Copy Code
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="applyFormattedCode()"
+                            title="Apply formatted code to editor">
+                            <i class="bi bi-check2-circle"></i> Apply to Editor
+                        </button>
+                    </div>
+                </div>
+                <div id="formatted-code-container" class="border rounded p-3"
+                    style="background-color: #f8f9fa; max-height: 70vh; overflow-y: auto;">
+                    <!-- Formatted code will be displayed here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,11 @@ namespace WebSpark.PrismSpark.Demo.Controllers
             return View(model);
         }
 
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> ValidateCode([FromBody] CodeValidationRequest request)
         {
