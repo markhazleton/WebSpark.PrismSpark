@@ -16,8 +16,12 @@ namespace WebSpark.PrismSpark.Demo.Controllers
             _logger = logger;
             _codeHighlightingService = codeHighlightingService;
         }
-
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Demo()
         {
             var model = GetCodeExamples();
             return View(model);

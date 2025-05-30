@@ -1,0 +1,67 @@
+@model List<WebSpark.PrismSpark.Demo.Models.CodeSnippet>
+@{
+    ViewData["Title"] = "PrismSpark Demo - Enhanced Code Syntax Highlighting";
+}
+
+<div class="text-center">
+    <h1 class="display-4">PrismSpark Demo</h1>
+    <p>Learn about <a href="https://github.com/MarkHazleton/WebSpark.PrismSpark">WebSpark.PrismSpark</a> - A powerful
+        .NET syntax highlighting library.</p>
+    <nav>
+        <a asp-action="Edit" class="btn btn-primary">Try Live Editor →</a>
+    </nav>
+</div>
+<div class="container">
+    <h1>Enhanced Code Syntax Highlighting & Validation</h1>
+    <p class="lead">This demo showcases server-side syntax highlighting using WebSpark.PrismSpark with client-side
+        validation capabilities.</p>
+
+    @foreach (var snippet in Model)
+    {
+        <!-- @snippet.Language Section -->
+        <div class="language-section">
+            <div class="language-header">
+                @snippet.Title
+            </div>
+            <div class="code-container">
+                <pre><code class="language-@snippet.Language" id="@snippet.Language-code">@Html.Raw(snippet.HighlightedCode)</code></pre>
+            </div>
+            <div class="validation-controls">
+                <button class="btn" onclick="validateCode('@snippet.Language')">Validate
+                    @snippet.Language.ToUpper()</button>
+                <button class="btn btn-success" onclick="formatCode('@snippet.Language')">Format
+                    @snippet.Language.ToUpper()</button>
+                <button class="btn btn-info" onclick="highlightCode('@snippet.Language')">Re-highlight</button>
+                <button class="btn btn-danger" onclick="clearResult('@snippet.Language')">Clear</button>
+                <div class="validation-result" id="@snippet.Language-result"></div>
+            </div>
+        </div>
+    }
+
+    <!-- Statistics Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-number" id="total-validations">0</div>
+            <div class="stat-label">Total Validations</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="success-rate">0%</div>
+            <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="avg-time">0ms</div>
+            <div class="stat-label">Avg Execution Time</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number" id="languages-tested">@Model.Count</div>
+            <div class="stat-label">Languages Supported</div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center" style="margin: 3rem 0;">
+        <h2>Want to try the Live Editor?</h2>
+        <p class="lead">Test your own code with interactive syntax highlighting and validation.</p>
+        <a asp-action="Edit" class="btn btn-primary btn-lg">Open Live Editor</a>
+    </div>
+</div>

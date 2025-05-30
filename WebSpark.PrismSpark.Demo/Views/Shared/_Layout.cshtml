@@ -1,4 +1,4 @@
-﻿@using WebSpark.Bootswatch.Services
+@using WebSpark.Bootswatch.Services
 @using WebSpark.Bootswatch.Helpers
 @inject StyleCache StyleCache
 <!DOCTYPE html>
@@ -36,12 +36,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Edit">Live
-                                Editor</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Demo">Demo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
-                                asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Edit">Live Editor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                     <bootswatch-theme-switcher />
@@ -54,10 +55,9 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-secondary">
         <div class="container">
-            &copy; 2025 - WebSpark.PrismSpark.Demo - <a asp-area="" asp-controller="Home"
-                asp-action="Privacy">Privacy</a>
+            &copy; 2025 - WebSpark.PrismSpark.Demo - <a href="https://markhazleton.com">MarkHazleton.com</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

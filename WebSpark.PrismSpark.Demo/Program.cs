@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpsPolicy;
 using WebSpark.Bootswatch;
 using WebSpark.HttpClientUtility.RequestResult;
 using WebSpark.PrismSpark;
@@ -7,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Configure HTTPS redirection
+builder.Services.Configure<HttpsRedirectionOptions>(options =>
+{
+    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+    options.HttpsPort = 7161; // Match the HTTPS port from launchSettings.json
+});
+
 // Use our custom implementation instead of the default one for HTTP requests
 builder.Services.AddScoped<IHttpRequestResultService, HttpRequestResultService>();
 
@@ -39,6 +48,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Configure HTTPS redirection with specific port
 app.UseHttpsRedirection();
 app.UseBootswatchAll();
 app.UseRouting();

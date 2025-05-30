@@ -1,67 +1,632 @@
-@model List<WebSpark.PrismSpark.Demo.Models.CodeSnippet>
-@{
-    ViewData["Title"] = "PrismSpark Demo - Enhanced Code Syntax Highlighting";
+﻿@{
+    ViewData["Title"] = "Home";
 }
+@using WebSpark.PrismSpark.Demo.Services
+@inject ICodeHighlightingService CodeHighlightingService
 
-<div class="text-center">
-    <h1 class="display-4">PrismSpark Demo</h1>
-    <p>Learn about <a href="https://github.com/MarkHazleton/WebSpark.PrismSpark">WebSpark.PrismSpark</a> - A powerful
-        .NET syntax highlighting library.</p>
-    <nav>
-        <a asp-action="Edit" class="btn btn-primary">Try Live Editor →</a>
-    </nav>
-</div>
-<div class="container">
-    <h1>Enhanced Code Syntax Highlighting & Validation</h1>
-    <p class="lead">This demo showcases server-side syntax highlighting using WebSpark.PrismSpark with client-side
-        validation capabilities.</p>
+<div class="container-fluid">
+    <!-- Hero Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="bg-primary text-white rounded-3 p-5 mb-4">
+                <div class="container-fluid py-5">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <i class="bi bi-code-slash me-3"></i>WebSpark.PrismSpark
+                    </h1>
+                    <p class="fs-4 mb-4">
+                        A powerful C# port of PrismJS for server-side syntax highlighting with advanced features, 
+                        theming support, and 20+ programming languages.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a class="btn btn-warning btn-lg px-4" asp-controller="Home" asp-action="Edit">
+                            <i class="bi bi-pencil-square me-2"></i>Try Live Editor
+                        </a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="#installation">
+                            <i class="bi bi-download me-2"></i>Get Started
+                        </a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="https://github.com/MarkHazleton/WebSpark.PrismSpark" target="_blank">
+                            <i class="bi bi-github me-2"></i>View on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    @foreach (var snippet in Model)
+    <!-- Features Overview -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-5">
+                <i class="bi bi-stars text-primary me-2"></i>Key Features
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-code text-primary fs-1"></i>
+                            </div>
+                            <h5 class="card-title">20+ Programming Languages</h5>
+                            <p class="card-text">Support for C#, JavaScript, Python, SQL, JSON, HTML, CSS, XML, YAML, Bash, PowerShell, Java, Rust, C, C++, and more.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-palette text-success fs-1"></i>
+                            </div>
+                            <h5 class="card-title">Advanced Theming System</h5>
+                            <p class="card-text">Built-in themes (Prism, Dark, Tomorrow Night, Solarized) with CSS generation and custom theme creation support.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-warning bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-puzzle text-warning fs-1"></i>
+                            </div>
+                            <h5 class="card-title">Plugin Architecture</h5>
+                            <p class="card-text">Extensible plugin system with built-in plugins for line numbers, copy-to-clipboard, syntax validation, and more.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-info bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-lightning text-info fs-1"></i>
+                            </div>
+                            <h5 class="card-title">High Performance</h5>
+                            <p class="card-text">Optimized tokenization engine with efficient parsing and highlighting for excellent server-side performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-danger bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-gear text-danger fs-1"></i>
+                            </div>
+                            <h5 class="card-title">Multiple Highlighters</h5>
+                            <p class="card-text">Choose from HtmlHighlighter, EnhancedHtmlHighlighter, or ThemedHtmlHighlighter based on your needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="bg-secondary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
+                                <i class="bi bi-bootstrap text-secondary fs-1"></i>
+                            </div>
+                            <h5 class="card-title">Easy Integration</h5>
+                            <p class="card-text">Simple NuGet package installation with dependency injection support for ASP.NET Core applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Installation Section -->
+    <div class="row mb-5" id="installation">
+        <div class="col-12">
+            <div class="bg-light rounded-3 p-4">
+                <h2 class="mb-4">
+                    <i class="bi bi-download text-primary me-2"></i>Installation & Setup
+                </h2>
+                
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="mb-3">
+                            <i class="bi bi-1-circle text-primary me-2"></i>Install NuGet Package
+                        </h4>
+                        <p>Install the WebSpark.PrismSpark package using the Package Manager Console:</p>
+                        <div class="code-example mb-4">
+                            @Html.Raw(CodeHighlightingService.HighlightCode("dotnet add package WebSpark.PrismSpark --version 1.0.0", "bash"))
+                        </div>
+                        
+                        <p>Or using Package Manager:</p>
+                        <div class="code-example mb-4">
+                            @Html.Raw(CodeHighlightingService.HighlightCode("Install-Package WebSpark.PrismSpark -Version 1.0.0", "powershell"))
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <h4 class="mb-3">
+                            <i class="bi bi-2-circle text-primary me-2"></i>Configure Services (ASP.NET Core)
+                        </h4>
+                        <p>Register PrismSpark services in your <code>Program.cs</code>:</p>
+                        <div class="code-example">
+                            @Html.Raw(CodeHighlightingService.HighlightCode(@"using WebSpark.PrismSpark;
+using WebSpark.PrismSpark.Highlighting;
+
+// Register PrismSpark services
+builder.Services.AddSingleton<IHighlighter, HtmlHighlighter>();
+builder.Services.AddSingleton<ThemedHtmlHighlighter>();", "csharp"))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Start Examples -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-play-circle text-primary me-2"></i>Quick Start Examples
+            </h2>
+            
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-code-slash me-2"></i>Basic Tokenization
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Simple code tokenization using the core Prism engine:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"using WebSpark.PrismSpark;
+
+var code = @""<p>Hello world!</p>"";
+var grammar = LanguageGrammars.Html;
+var tokens = Prism.Tokenize(code, grammar);
+
+// Process tokens as needed
+foreach (var token in tokens)
+{
+    Console.WriteLine($""{token.Type}: {token.Content}"");
+}", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-palette2 me-2"></i>HTML Highlighting
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Generate highlighted HTML with CSS classes:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"using WebSpark.PrismSpark;
+using WebSpark.PrismSpark.Highlighting;
+
+var code = @""function hello() { 
+    console.log('Hello World!'); 
+}"";
+
+var highlighter = new HtmlHighlighter();
+var html = highlighter.Highlight(code, 
+    LanguageGrammars.JavaScript, ""javascript"");
+
+// html contains: <span class=""token keyword"">function</span>...", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Advanced Features -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-gear-wide-connected text-primary me-2"></i>Advanced Features
+            </h2>
+            
+            <div class="accordion" id="featuresAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#themedHighlighting">
+                            <i class="bi bi-palette me-2"></i>Themed Highlighting with CSS Generation
+                        </button>
+                    </h2>
+                    <div id="themedHighlighting" class="accordion-collapse collapse show" data-bs-parent="#featuresAccordion">
+                        <div class="accordion-body">
+                            <p>Create complete HTML pages with embedded CSS using the ThemedHtmlHighlighter:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"var highlighter = new ThemedHtmlHighlighter(""dark"");
+
+// Generate just the highlighted HTML
+var html = highlighter.Highlight(code, ""python"");
+
+// Or generate a complete HTML page with CSS
+var htmlPage = highlighter.GenerateHtmlPage(code, ""python"", ""My Code"");
+
+// Generate standalone CSS
+var css = highlighter.GenerateCss();", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#enhancedFeatures">
+                            <i class="bi bi-plus-circle me-2"></i>Enhanced Highlighting with Options
+                        </button>
+                    </h2>
+                    <div id="enhancedFeatures" class="accordion-collapse collapse" data-bs-parent="#featuresAccordion">
+                        <div class="accordion-body">
+                            <p>Use EnhancedHtmlHighlighter for advanced features like line numbers and highlighted lines:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"var highlighter = new EnhancedHtmlHighlighter();
+var options = new HighlightOptions
+{
+    EnableLineNumbers = true,
+    HighlightedLines = new[] { 2, 4, 6 },
+    CustomCssClasses = new Dictionary<string, string>
     {
-        <!-- @snippet.Language Section -->
-        <div class="language-section">
-            <div class="language-header">
-                @snippet.Title
-            </div>
-            <div class="code-container">
-                <pre><code class="language-@snippet.Language" id="@snippet.Language-code">@Html.Raw(snippet.HighlightedCode)</code></pre>
-            </div>
-            <div class="validation-controls">
-                <button class="btn" onclick="validateCode('@snippet.Language')">Validate
-                    @snippet.Language.ToUpper()</button>
-                <button class="btn btn-success" onclick="formatCode('@snippet.Language')">Format
-                    @snippet.Language.ToUpper()</button>
-                <button class="btn btn-info" onclick="highlightCode('@snippet.Language')">Re-highlight</button>
-                <button class="btn btn-danger" onclick="clearResult('@snippet.Language')">Clear</button>
-                <div class="validation-result" id="@snippet.Language-result"></div>
-            </div>
-        </div>
+        [""keyword""] = ""my-custom-keyword-style""
     }
+};
 
-    <!-- Statistics Section -->
-    <div class="stats-container">
-        <div class="stat-card">
-            <div class="stat-number" id="total-validations">0</div>
-            <div class="stat-label">Total Validations</div>
+var html = highlighter.Highlight(code, ""csharp"", options);", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#customThemes">
+                            <i class="bi bi-brush me-2"></i>Custom Theme Creation
+                        </button>
+                    </h2>
+                    <div id="customThemes" class="accordion-collapse collapse" data-bs-parent="#featuresAccordion">
+                        <div class="accordion-body">
+                            <p>Create and register custom themes for unique styling:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"var customTheme = new Theme
+{
+    Name = ""my-awesome-theme"",
+    Description = ""A custom theme with vibrant colors"",
+    Background = new ThemeStyle { BackgroundColor = ""#1e1e1e"" },
+    Foreground = new ThemeStyle { Color = ""#d4d4d4"" },
+    TokenStyles = new Dictionary<string, ThemeStyle>
+    {
+        [""keyword""] = new() { Color = ""#569cd6"", FontWeight = ""bold"" },
+        [""string""] = new() { Color = ""#ce9178"" },
+        [""comment""] = new() { Color = ""#6a9955"", FontStyle = ""italic"" },
+        [""function""] = new() { Color = ""#dcdcaa"" }
+    }
+};
+
+ThemeManager.RegisterTheme(customTheme);
+ThemeManager.SetDefaultTheme(""my-awesome-theme"");", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pluginSystem">
+                            <i class="bi bi-puzzle me-2"></i>Plugin System & Extensions
+                        </button>
+                    </h2>
+                    <div id="pluginSystem" class="accordion-collapse collapse" data-bs-parent="#featuresAccordion">
+                        <div class="accordion-body">
+                            <p>Extend functionality with the built-in plugin system:</p>
+                            <div class="code-example">
+                                @Html.Raw(CodeHighlightingService.HighlightCode(@"// Available built-in plugins:
+// - Line Numbers Plugin
+// - Copy to Clipboard Plugin  
+// - Syntax Validation Plugin
+// - Theme Switching Plugin
+// - Custom CSS Classes Plugin
+
+// Plugins are automatically integrated with Enhanced and Themed highlighters
+var highlighter = new EnhancedHtmlHighlighter();
+// Line numbers and other plugins work automatically", "csharp"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-number" id="success-rate">0%</div>
-            <div class="stat-label">Success Rate</div>
+    </div>
+
+    <!-- Supported Languages -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-translate text-primary me-2"></i>Supported Programming Languages
+            </h2>
+            <div class="bg-light rounded-3 p-4">
+                <div class="row g-3">
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>C# / .NET</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>JavaScript / TypeScript</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Python</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Java</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>SQL</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>HTML / CSS</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>JSON / XML</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>YAML</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Bash / PowerShell</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Rust</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>C / C++</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>PHP</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Go</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Ruby</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Markdown</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-plus-circle text-info me-2"></i>
+                            <span>And more...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-number" id="avg-time">0ms</div>
-            <div class="stat-label">Avg Execution Time</div>
+    </div>
+
+    <!-- Built-in Themes -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-palette2 text-primary me-2"></i>Built-in Themes
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-light border rounded p-3 mb-3">
+                                <div class="small text-muted"># Prism (Default)</div>
+                                <div style="background: #f5f2f0; color: #000; padding: 8px; border-radius: 4px; font-family: monospace;">
+                                    <span style="color: #07a;">function</span> hello() { <br>
+                                    &nbsp;&nbsp;<span style="color: #690;">console</span>.<span style="color: #07a;">log</span>(<span style="color: #a50;">'Hi!'</span>); <br>
+                                    }
+                                </div>
+                            </div>
+                            <h6>Prism</h6>
+                            <p class="small text-muted">Classic light theme</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-dark border rounded p-3 mb-3">
+                                <div class="small text-light"># Dark</div>
+                                <div style="background: #1e1e1e; color: #d4d4d4; padding: 8px; border-radius: 4px; font-family: monospace;">
+                                    <span style="color: #569cd6;">function</span> hello() { <br>
+                                    &nbsp;&nbsp;<span style="color: #4ec9b0;">console</span>.<span style="color: #dcdcaa;">log</span>(<span style="color: #ce9178;">'Hi!'</span>); <br>
+                                    }
+                                </div>
+                            </div>
+                            <h6>Dark</h6>
+                            <p class="small text-muted">Modern dark theme</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-dark border rounded p-3 mb-3">
+                                <div class="small text-light"># Tomorrow Night</div>
+                                <div style="background: #2d2d2d; color: #cccccc; padding: 8px; border-radius: 4px; font-family: monospace;">
+                                    <span style="color: #cc99cd;">function</span> hello() { <br>
+                                    &nbsp;&nbsp;<span style="color: #f2777a;">console</span>.<span style="color: #6699cc;">log</span>(<span style="color: #99cc99;">'Hi!'</span>); <br>
+                                    }
+                                </div>
+                            </div>
+                            <h6>Tomorrow Night</h6>
+                            <p class="small text-muted">Popular dark theme</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <div class="bg-light border rounded p-3 mb-3">
+                                <div class="small text-muted"># Solarized Light</div>
+                                <div style="background: #fdf6e3; color: #657b83; padding: 8px; border-radius: 4px; font-family: monospace;">
+                                    <span style="color: #859900;">function</span> hello() { <br>
+                                    &nbsp;&nbsp;<span style="color: #268bd2;">console</span>.<span style="color: #2aa198;">log</span>(<span style="color: #2aa198;">'Hi!'</span>); <br>
+                                    }
+                                </div>
+                            </div>
+                            <h6>Solarized Light</h6>
+                            <p class="small text-muted">Elegant light theme</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="stat-card">
-            <div class="stat-number" id="languages-tested">@Model.Count</div>
-            <div class="stat-label">Languages Supported</div>
+    </div>
+
+    <!-- API Documentation -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-book text-primary me-2"></i>API Documentation
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Core Classes</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><code>Prism</code> - Core tokenization engine</li>
+                                <li class="mb-2"><code>LanguageGrammars</code> - Grammar definitions</li>
+                                <li class="mb-2"><code>IHighlighter</code> - Highlighter interface</li>
+                                <li class="mb-2"><code>HtmlHighlighter</code> - Basic HTML output</li>
+                                <li class="mb-2"><code>EnhancedHtmlHighlighter</code> - Advanced features</li>
+                                <li class="mb-2"><code>ThemedHtmlHighlighter</code> - With theming</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Theme System</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><code>ThemeManager</code> - Theme management</li>
+                                <li class="mb-2"><code>Theme</code> - Theme configuration</li>
+                                <li class="mb-2"><code>ThemeStyle</code> - Style definitions</li>
+                                <li class="mb-2"><code>CssGenerator</code> - CSS generation</li>
+                                <li class="mb-2"><code>CssOptions</code> - CSS configuration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">Plugin System</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><code>PluginManager</code> - Plugin coordination</li>
+                                <li class="mb-2"><code>IPlugin</code> - Plugin interface</li>
+                                <li class="mb-2"><code>HighlightOptions</code> - Configuration</li>
+                                <li class="mb-2"><code>HooksSystem</code> - Event hooks</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Call to Action -->
-    <div class="text-center" style="margin: 3rem 0;">
-        <h2>Want to try the Live Editor?</h2>
-        <p class="lead">Test your own code with interactive syntax highlighting and validation.</p>
-        <a asp-action="Edit" class="btn btn-primary btn-lg">Open Live Editor</a>
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="bg-gradient bg-primary text-white rounded-3 p-5 text-center">
+                <h2 class="mb-3">Ready to Get Started?</h2>
+                <p class="fs-5 mb-4">Experience the power of WebSpark.PrismSpark in your next project</p>
+                <div class="d-flex justify-content-center flex-wrap gap-3">
+                    <a class="btn btn-warning btn-lg px-5" asp-controller="Home" asp-action="Edit">
+                        <i class="bi bi-play-fill me-2"></i>Try Live Demo
+                    </a>
+                    <a class="btn btn-outline-light btn-lg px-5" href="https://www.nuget.org/packages/WebSpark.PrismSpark" target="_blank">
+                        <i class="bi bi-box-seam me-2"></i>View on NuGet
+                    </a>
+                    <a class="btn btn-outline-light btn-lg px-5" href="https://github.com/MarkHazleton/WebSpark.PrismSpark" target="_blank">
+                        <i class="bi bi-github me-2"></i>GitHub Repository
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+    .code-example {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 0.375rem;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+    
+    .code-example pre {
+        margin: 0;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    
+    .bg-gradient {
+        background: linear-gradient(45deg, var(--bs-primary), #6f42c1) !important;
+    }
+</style>
