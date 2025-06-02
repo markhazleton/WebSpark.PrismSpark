@@ -1,110 +1,41 @@
 # PrismSharp - Enhanced Features
 
-This document outlines the comprehensive set of features that have been added to PrismSharp to bring it closer to PrismJS functionality.
+This document describes the advanced features and extensibility of PrismSharp, the .NET port of PrismJS.
 
-## 🚀 New Features Added
+---
 
-### 1. Plugin System Architecture
+## 🚀 New Features
 
-A complete plugin system has been implemented that mirrors PrismJS's extensibility:
+### Plugin System
 
-#### Core Plugin Infrastructure
+- **IPlugin Interface**: Standardized plugin interface
+- **PluginManager**: Centralized registration and execution
+- **Dependency Resolution**: Automatic plugin ordering
+- **Built-in Plugins**: Line numbers, copy-to-clipboard, toolbar, autolinker, file highlight, show language, command line, normalize whitespace, custom class
 
-- **IPlugin Interface**: Standardized plugin interface with lifecycle management
-- **PluginBase Class**: Abstract base class providing common plugin functionality
-- **PluginManager**: Centralized plugin registration and execution
-- **Dependency Resolution**: Automatic plugin dependency ordering and initialization
+### Hooks System
 
-#### Built-in Plugins
-
-##### Essential Plugins
-
-- **CustomClassPlugin**: Add custom CSS classes and modify token styling
-- **LineNumbersPlugin**: Add line numbers to code blocks
-- **LineHighlightPlugin**: Highlight specific lines in code blocks
-- **NormalizeWhitespacePlugin**: Format and normalize code whitespace
-
-##### Advanced Plugins
-
-- **CopyToClipboardPlugin**: Add copy-to-clipboard functionality
-- **AutolinkerPlugin**: Automatically convert URLs to clickable links
-- **FileHighlightPlugin**: Auto-detect language from file patterns
-- **ShowLanguagePlugin**: Display the programming language name
-- **ToolbarPlugin**: Add customizable toolbar to code blocks
-- **CommandLinePlugin**: Enhanced command line and shell highlighting
-
-### 2. Hooks System
-
-Event-driven extensibility system for custom processing:
+Event-driven extensibility for custom processing:
 
 ```csharp
-// Register custom hook handlers
-Hooks.Add(HookNames.BeforeTokenize, args => {
-    // Custom pre-processing
-});
-
-Hooks.Add(HookNames.AfterHighlight, args => {
-    // Custom post-processing
-});
+Hooks.Add(HookNames.BeforeTokenize, args => { /* pre-processing */ });
+Hooks.Add(HookNames.AfterHighlight, args => { /* post-processing */ });
 ```
 
-**Available Hooks:**
+Available hooks: `before-tokenize`, `after-tokenize`, `before-highlight`, `after-highlight`, `before-insert`, `after-insert`, `wrap-tokens`, `complete`
 
-- `before-tokenize`, `after-tokenize`
-- `before-highlight`, `after-highlight`
-- `before-insert`, `after-insert`
-- `wrap-tokens`, `complete`
+### Advanced HTML Highlighting
 
-### 3. Advanced HTML Highlighting
+- **EnhancedHtmlHighlighter**: Plugin integration, line numbers, line highlighting, custom CSS classes
+- **ThemedHtmlHighlighter**: Theme-aware highlighting, CSS generation, HTML page generation
 
-#### EnhancedHtmlHighlighter
+### Theme System
 
-Comprehensive highlighting with plugin integration:
-
-```csharp
-var highlighter = new EnhancedHtmlHighlighter();
-var options = new HighlightOptions
-{
-    EnableLineNumbers = true,
-    HighlightedLines = new[] { 2, 4, 6 },
-    CustomCssClasses = new Dictionary<string, string>
-    {
-        ["keyword"] = "my-keyword-style"
-    }
-};
-
-var html = highlighter.Highlight(code, "csharp", options);
-```
-
-#### ThemedHtmlHighlighter
-
-Theme-aware highlighting with CSS generation:
+- Built-in themes: Prism, Dark, Tomorrow Night, Solarized Light
+- Custom theme creation and registration
+- CSS generation for themes and plugins
 
 ```csharp
-var highlighter = new ThemedHtmlHighlighter("dark");
-var htmlPage = highlighter.GenerateHtmlPage(code, "python", "My Code");
-```
-
-### 4. Theme System
-
-Complete theme management system:
-
-#### Built-in Themes
-
-- **Prism**: Default PrismJS theme
-- **Dark**: Modern dark theme
-- **Tomorrow Night**: Popular dark theme
-- **Solarized Light**: Popular light theme
-
-#### Theme Features
-
-- Custom theme creation
-- CSS generation
-- Token-specific styling
-- Background and foreground customization
-
-```csharp
-// Create custom theme
 var theme = new Theme
 {
     Name = "my-theme",
@@ -116,81 +47,24 @@ var theme = new Theme
         ["string"] = new() { Color = "#ce9178" }
     }
 };
-
 ThemeManager.RegisterTheme(theme);
 ```
 
-### 5. Extended Language Support
+### Extended Language Support
 
-#### Popular Languages Added
+- Rust, Go, Kotlin, Swift, YAML, Markdown, and more
+- TypeScript, PHP, Ruby, and language aliases
 
-- **Rust**: Complete Rust syntax with macros and lifetime annotations
-- **Go**: Go language with goroutines and channels
-- **Kotlin**: Modern Android development language
-- **Swift**: iOS development language
-- **YAML**: Configuration file format
-- **Markdown**: Documentation format with embedded code blocks
+### Utility Functions
 
-#### Language Features
+- **StringUtils**: HTML escaping, normalization, case conversion
+- **GrammarUtils**: Clone, extend, insert tokens
+- **TokenUtils**: Manipulate and query tokens
+- **CodeUtils**: Language detection, line utilities
 
-- TypeScript with type annotations
-- PHP with embedded HTML support
-- Ruby with comprehensive syntax support
-- Language aliases and file extension detection
-
-### 6. Utility Functions
-
-#### String Utilities
+### CSS Generation System
 
 ```csharp
-// HTML escaping/unescaping
-var escaped = StringUtils.EscapeHtml(code);
-
-// Code normalization
-var normalized = StringUtils.NormalizeWhitespace(code, tabSize: 4);
-
-// Case conversion
-var kebab = StringUtils.ToKebabCase("camelCase");
-```
-
-#### Grammar Utilities
-
-```csharp
-// Clone and extend grammars
-var newGrammar = GrammarUtils.CloneGrammar(baseGrammar);
-var extended = GrammarUtils.ExtendGrammar(baseGrammar, extension);
-
-// Insert tokens
-GrammarUtils.InsertBefore(grammar, "keyword", "custom", customToken);
-```
-
-#### Token Utilities
-
-```csharp
-// Token manipulation
-var strings = TokenUtils.TokensToStringArray(tokens);
-var keywordTokens = TokenUtils.GetTokensByType(tokens, "keyword");
-var wrapped = TokenUtils.WrapTokens(tokens, "container");
-```
-
-#### Code Analysis
-
-```csharp
-// Language detection
-var language = CodeUtils.DetectLanguage(code);
-
-// Line utilities
-var lineCount = CodeUtils.CountLines(code);
-var line = CodeUtils.GetLine(code, 5);
-var indent = CodeUtils.GetIndentationLevel(line);
-```
-
-### 7. CSS Generation System
-
-Comprehensive CSS generation for themes and plugins:
-
-```csharp
-// Generate theme CSS
 var css = CssGenerator.GenerateThemeCss("dark", new CssOptions
 {
     FontFamily = "JetBrains Mono, monospace",
@@ -199,9 +73,7 @@ var css = CssGenerator.GenerateThemeCss("dark", new CssOptions
 });
 ```
 
-### 8. Context and Metadata System
-
-Rich context information for advanced processing:
+### Context and Metadata System
 
 ```csharp
 var context = new HighlightContext
@@ -212,18 +84,13 @@ var context = new HighlightContext
 };
 ```
 
+---
+
 ## 📖 Usage Examples
 
-### Basic Setup
+### Initialization
 
 ```csharp
-using PrismSharp.Core;
-using PrismSharp.Highlighting.HTML;
-
-// Initialize PrismSharp with all features
-PrismSharp.Initialize();
-
-// Or initialize with custom configuration
 PrismSharp.Initialize(config => {
     config.EnablePlugin("line-numbers")
           .EnablePlugin("copy-to-clipboard")
@@ -234,10 +101,7 @@ PrismSharp.Initialize(config => {
 ### Complete Example
 
 ```csharp
-// Create themed highlighter
 var highlighter = new ThemedHtmlHighlighter("tomorrow-night");
-
-// Configure highlighting options
 var options = new HighlightOptions
 {
     EnableLineNumbers = true,
@@ -245,83 +109,54 @@ var options = new HighlightOptions
     NormalizeWhitespace = true,
     TabSize = 4
 };
-
-// Highlight code
 var html = highlighter.Highlight(sourceCode, "typescript", options);
-
-// Generate complete HTML page
-var page = highlighter.GenerateHtmlPage(
-    sourceCode, 
-    "typescript", 
-    "TypeScript Example"
-);
+var page = highlighter.GenerateHtmlPage(sourceCode, "typescript", "TypeScript Example");
 ```
 
 ### Plugin Configuration
 
 ```csharp
-// Configure specific plugins
 var lineNumbersPlugin = PluginManager.GetPlugin("line-numbers");
 lineNumbersPlugin.SetOption("startFrom", 10);
-
 var toolbarPlugin = PluginManager.GetPlugin("toolbar");
 toolbarPlugin.SetOption("showCopy", true);
 toolbarPlugin.SetOption("showSelectAll", true);
 ```
 
+---
+
 ## 🎯 PrismJS Feature Parity
 
-This implementation brings PrismSharp to near feature parity with PrismJS:
-
-### ✅ Implemented
-
-- [x] Plugin system architecture
-- [x] Hooks system for extensibility
-- [x] Line numbers plugin
-- [x] Line highlighting plugin
-- [x] Copy to clipboard plugin
-- [x] Autolinker plugin
-- [x] Show language plugin
-- [x] Toolbar plugin
-- [x] Command line plugin
-- [x] Normalize whitespace plugin
-- [x] File highlight plugin
-- [x] Custom class plugin
+- [x] Plugin system
+- [x] Hooks system
+- [x] Line numbers, line highlighting, copy-to-clipboard, autolinker, show language, toolbar, command line, normalize whitespace, file highlight, custom class
 - [x] Theme system with CSS generation
 - [x] Multiple built-in themes
-- [x] Extended language support (20+ languages)
+- [x] Extended language support
 - [x] Utility functions
 - [x] Context and metadata system
 - [x] Advanced HTML generation
 
-### 🔄 Extensions Beyond PrismJS
+### Extensions Beyond PrismJS
 
-- Enhanced theme management system
-- Comprehensive CSS generation
+- Enhanced theme management
 - Complete HTML page generation
 - Advanced language detection
 - Rich metadata support
 - Fluent configuration API
 - Integrated utility functions
 
-## 🚀 Performance Considerations
+---
 
-The implementation maintains performance while adding extensive features:
+## 🚀 Performance & Extensibility
 
-- Lazy loading of language grammars
+- Lazy loading of grammars
 - Plugin dependency resolution
 - Efficient token processing
 - Minimal memory overhead
-- Configurable feature sets
-
-## 🔧 Extensibility
-
-The system is designed for maximum extensibility:
-
-- Custom plugin development
-- Hook system for processing pipeline customization
-- Custom theme creation
+- Custom plugin and theme development
+- Hook system for pipeline customization
 - Grammar extension and modification
 - Token manipulation utilities
 
-This comprehensive feature set makes PrismSharp a powerful, extensible syntax highlighting library that rivals and extends the capabilities of PrismJS while maintaining the performance and type safety of C#/.NET.
+PrismSharp is a powerful, extensible syntax highlighting library for .NET, rivaling and extending PrismJS while maintaining .NET performance and type safety.

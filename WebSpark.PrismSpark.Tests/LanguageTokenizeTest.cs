@@ -236,4 +236,14 @@ public class LanguageTokenizeTest
         Assert.NotEmpty(testFiles);
         Assert.All(testFiles, testFile => TestHelper.RunTestCaseFromFile(LanguageGrammars.Java, testFile));
     }
+
+    [Fact]
+    public void test_Pug_features_ok()
+    {
+        var pugCode = "//- A comment\ndoctype html\nhtml\n  head\n    title= pageTitle\n  body\n    h1 Pug - node template engine\n    #container.col\n      if youAreUsingPug\n        p You are amazing\n      else\n        p Get on it!";
+        var grammar = LanguageGrammars.GetGrammar("pug");
+        var tokens = Prism.Tokenize(pugCode, grammar);
+        Assert.NotNull(tokens);
+        Assert.True(tokens.Length > 0);
+    }
 }

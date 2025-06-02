@@ -36,6 +36,7 @@ public static class LanguageGrammars
         AddDefinition<Rust>("rust");
         AddDefinition<Python>("python", "py");
         AddDefinition<Java>("java");
+        AddDefinition<Pug>("pug");
     }
 
     /// <summary>
@@ -138,4 +139,6 @@ public static class LanguageGrammars
     public static Grammar Python => GetGrammar("python");
     /// <summary>Gets the Java programming language grammar.</summary>
     public static Grammar Java => GetGrammar("java");
+    /// <summary>Gets the Pug programming language grammar.</summary>
+    public static Grammar Pug => GetGrammar("pug");
 }

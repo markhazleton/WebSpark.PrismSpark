@@ -32,6 +32,11 @@ namespace WebSpark.PrismSpark.Demo.Controllers
             return View();
         }
 
+        public IActionResult PugDemo()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> ValidateCode([FromBody] CodeValidationRequest request)
         {
@@ -125,6 +130,12 @@ namespace WebSpark.PrismSpark.Demo.Controllers
                     Language = "javascript",
                     Title = "JavaScript - Dynamic Programming Language",
                     Code = GetSampleJavaScript()
+                },
+                new CodeSnippet
+                {
+                    Language = "pug",
+                    Title = "PUG - Node.js Template Engine",
+                    Code = "//- A comment\ndoctype html\nhtml\n  head\n    title= pageTitle\n  body\n    h1 Pug - node template engine\n    #container.col\n      if youAreUsingPug\n        p You are amazing\n      else\n        p Get on it!"
                 }
             };
 

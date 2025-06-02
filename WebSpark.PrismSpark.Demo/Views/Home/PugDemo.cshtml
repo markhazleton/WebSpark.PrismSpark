@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "PUG Syntax Highlighting Demo";
+}
+@inject WebSpark.PrismSpark.Demo.Services.ICodeHighlightingService CodeHighlightingService;
+
+<h2>PUG Syntax Highlighting Demo</h2>
+<p>This page demonstrates the raw .pug file and the Prism-syntax-highlighted PUG output side by side.</p>
+
+@{
+    var pugCode = @"//- A comment
+doctype html
+html
+head
+title= pageTitle
+body
+h1 Pug - node template engine
+#container.col
+if youAreUsingPug
+p You are amazing
+else
+p Get on it!";
+    var highlighted = CodeHighlightingService.HighlightCode(pugCode, "pug");
+}
+
+<div style="display: flex; gap: 2rem; align-items: flex-start;">
+    <div style="flex: 1;">
+        <h4>Raw .pug</h4>
+        <div class="code-container" style="background:#f8f9fa; border:1px solid #ccc;">
+            <pre><code style="background:none; color:inherit;">@Html.Raw(System.Net.WebUtility.HtmlEncode(pugCode))</code></pre>
+        </div>
+    </div>
+    <div style="flex: 1;">
+        <h4>Prism Highlighted .pug</h4>
+        <div class="code-container">
+            <pre><code class="language-pug">@Html.Raw(highlighted)</code></pre>
+        </div>
+    </div>
+</div>
