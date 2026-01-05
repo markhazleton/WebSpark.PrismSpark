@@ -2,6 +2,9 @@
 
 A modern, high-performance C#/.NET port of [PrismJS](https://github.com/PrismJS/prism) for advanced syntax highlighting, theming, and extensibility.
 
+[![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 ---
 
 ## Features
@@ -12,6 +15,14 @@ A modern, high-performance C#/.NET port of [PrismJS](https://github.com/PrismJS/
 - **Hooks & Extensibility**: Event-driven customization
 - **Advanced Options**: Line highlighting, custom CSS classes, context/metadata
 - **Performance**: Async processing, caching, and efficient rendering
+- **✨ .NET 10.0 LTS Support**: Fully compatible with the latest .NET Long Term Support release
+
+---
+
+## Requirements
+
+- **.NET 10.0** or later (Long Term Support)
+- Compatible with .NET 9.0 and earlier versions
 
 ---
 
