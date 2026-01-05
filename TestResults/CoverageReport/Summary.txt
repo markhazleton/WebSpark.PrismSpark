@@ -1,0 +1,88 @@
+Summary
+  Generated on: 1/5/2026 - 7:24:47 AM
+  Coverage date: 1/5/2026 - 7:24:37 AM
+  Parser: Cobertura
+  Assemblies: 1
+  Classes: 66
+  Files: 44
+  Line coverage: 82.4%
+  Covered lines: 6382
+  Uncovered lines: 1356
+  Coverable lines: 7738
+  Total lines: 10702
+  Branch coverage: 23.5% (166 of 706)
+  Covered branches: 166
+  Total branches: 706
+  Method coverage: 58.4% (184 of 315)
+  Full method coverage: 55.5% (175 of 315)
+  Covered methods: 184
+  Fully covered methods: 175
+  Total methods: 315
+
+WebSpark.PrismSpark                                          82.4%
+  WebSpark.PrismSpark.Examples.PrismSparkExamples               0%
+  WebSpark.PrismSpark.Grammar                                93.7%
+  WebSpark.PrismSpark.GrammarToken                            100%
+  WebSpark.PrismSpark.HighlightContext                        100%
+  WebSpark.PrismSpark.Highlighting.CssGenerator               100%
+  WebSpark.PrismSpark.Highlighting.CssOptions                 100%
+  WebSpark.PrismSpark.Highlighting.EnhancedHtmlHighlighter     87%
+  WebSpark.PrismSpark.Highlighting.HighlightOptions           100%
+  WebSpark.PrismSpark.Highlighting.HtmlHighlighter            100%
+  WebSpark.PrismSpark.Highlighting.ThemedHtmlHighlighter     84.7%
+  WebSpark.PrismSpark.HookEventArgs                           100%
+  WebSpark.PrismSpark.Hooks                                    16%
+  WebSpark.PrismSpark.LanguageGrammars                       90.4%
+  WebSpark.PrismSpark.Languages.AspNet                        100%
+  WebSpark.PrismSpark.Languages.Bash                          100%
+  WebSpark.PrismSpark.Languages.Batch                         100%
+  WebSpark.PrismSpark.Languages.C                             100%
+  WebSpark.PrismSpark.Languages.Cil                           100%
+  WebSpark.PrismSpark.Languages.CLike                         100%
+  WebSpark.PrismSpark.Languages.Cpp                           100%
+  WebSpark.PrismSpark.Languages.CSharp                        100%
+  WebSpark.PrismSpark.Languages.CSHtml                        100%
+  WebSpark.PrismSpark.Languages.Css                           100%
+  WebSpark.PrismSpark.Languages.Go                            100%
+  WebSpark.PrismSpark.Languages.Java                          100%
+  WebSpark.PrismSpark.Languages.JavaScript                    100%
+  WebSpark.PrismSpark.Languages.Json                          100%
+  WebSpark.PrismSpark.Languages.Lua                           100%
+  WebSpark.PrismSpark.Languages.Markup                        100%
+  WebSpark.PrismSpark.Languages.Php                             0%
+  WebSpark.PrismSpark.Languages.PopularLanguages                0%
+  WebSpark.PrismSpark.Languages.PowerShell                    100%
+  WebSpark.PrismSpark.Languages.Pug                           100%
+  WebSpark.PrismSpark.Languages.Python                        100%
+  WebSpark.PrismSpark.Languages.RegExp                        100%
+  WebSpark.PrismSpark.Languages.Ruby                            0%
+  WebSpark.PrismSpark.Languages.Rust                          100%
+  WebSpark.PrismSpark.Languages.Sql                           100%
+  WebSpark.PrismSpark.Languages.TypeScript                      0%
+  WebSpark.PrismSpark.Languages.Yaml                          100%
+  WebSpark.PrismSpark.PluginBase                                0%
+  WebSpark.PrismSpark.PluginManager                          33.3%
+  WebSpark.PrismSpark.Plugins.AutolinkerPlugin                  0%
+  WebSpark.PrismSpark.Plugins.CommandLinePlugin                 0%
+  WebSpark.PrismSpark.Plugins.CopyToClipboardPlugin             0%
+  WebSpark.PrismSpark.Plugins.CustomClassPlugin                 0%
+  WebSpark.PrismSpark.Plugins.FileHighlightPlugin               0%
+  WebSpark.PrismSpark.Plugins.LineHighlightPlugin               0%
+  WebSpark.PrismSpark.Plugins.LineNumbersPlugin                 0%
+  WebSpark.PrismSpark.Plugins.NormalizeWhitespacePlugin         0%
+  WebSpark.PrismSpark.Plugins.ShowLanguagePlugin                0%
+  WebSpark.PrismSpark.Plugins.ToolbarPlugin                     0%
+  WebSpark.PrismSpark.Prism                                  99.2%
+  WebSpark.PrismSpark.PrismConfiguration                        0%
+  WebSpark.PrismSpark.PrismSpark                                0%
+  WebSpark.PrismSpark.StreamToken                             100%
+  WebSpark.PrismSpark.StringToken                             100%
+  WebSpark.PrismSpark.Themes.Theme                            100%
+  WebSpark.PrismSpark.Themes.ThemeManager                    87.3%
+  WebSpark.PrismSpark.Themes.ThemeStyle                      81.4%
+  WebSpark.PrismSpark.Token                                   100%
+  WebSpark.PrismSpark.Util                                    100%
+  WebSpark.PrismSpark.Utilities.CodeUtils                       0%
+  WebSpark.PrismSpark.Utilities.GrammarUtils                    0%
+  WebSpark.PrismSpark.Utilities.StringUtils                   7.7%
+  WebSpark.PrismSpark.Utilities.TokenUtils                      0%
