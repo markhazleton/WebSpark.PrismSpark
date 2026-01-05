@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <Version>1.0.0</Version>
@@ -6,7 +6,7 @@
         <FileVersion>1.0.0.0</FileVersion>
 
         <!-- Targeting & Language Features -->
-        <TargetFrameworks>net9.0</TargetFrameworks>
+        <TargetFrameworks>net10.0</TargetFrameworks>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
