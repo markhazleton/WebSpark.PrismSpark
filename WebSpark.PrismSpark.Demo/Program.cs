@@ -3,11 +3,22 @@ using WebSpark.Bootswatch;
 using WebSpark.HttpClientUtility.RequestResult;
 using WebSpark.PrismSpark;
 using WebSpark.PrismSpark.Highlighting;
+using WebSpark.PrismSpark.Demo.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Configure session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+    options.Cookie.Name = "PrismSparkDemo.Session";
+});
 
 // Configure HTTPS redirection
 builder.Services.Configure<HttpsRedirectionOptions>(options =>
@@ -24,6 +35,7 @@ builder.Services.AddSingleton<IHighlighter, HtmlHighlighter>();
 builder.Services.AddSingleton<EnhancedHtmlHighlighter>();
 builder.Services.AddSingleton<ThemedHtmlHighlighter>();
 builder.Services.AddScoped<WebSpark.PrismSpark.Demo.Services.ICodeHighlightingService, WebSpark.PrismSpark.Demo.Services.CodeHighlightingService>();
+builder.Services.AddScoped<WebSpark.PrismSpark.Demo.Services.IThemeService, WebSpark.PrismSpark.Demo.Services.ThemeService>();
 
 // Use the extension method to register Bootswatch theme switcher (includes StyleCache)
 builder.Services.AddBootswatchThemeSwitcher();
@@ -51,6 +63,13 @@ if (!app.Environment.IsDevelopment())
 // Configure HTTPS redirection with specific port
 app.UseHttpsRedirection();
 app.UseBootswatchAll();
+
+// Enable session
+app.UseSession();
+
+// Initialize default themes for new sessions
+app.UseThemeInitialization();
+
 app.UseRouting();
 
 app.UseAuthorization();

@@ -15,15 +15,18 @@ public class CodeHighlightingService : ICodeHighlightingService
 {
     private readonly IHighlighter _htmlHighlighter;
     private readonly ThemedHtmlHighlighter _themedHighlighter;
+    private readonly IThemeService _themeService;
     private readonly ILogger<CodeHighlightingService> _logger;
 
     public CodeHighlightingService(
         IHighlighter htmlHighlighter,
         ThemedHtmlHighlighter themedHighlighter,
+        IThemeService themeService,
         ILogger<CodeHighlightingService> logger)
     {
         _htmlHighlighter = htmlHighlighter;
         _themedHighlighter = themedHighlighter;
+        _themeService = themeService;
         _logger = logger;
     }
 
@@ -31,8 +34,9 @@ public class CodeHighlightingService : ICodeHighlightingService
     {
         try
         {
-            var grammar = GetGrammarForLanguage(language);
-            return _htmlHighlighter.Highlight(code, grammar, language);
+            // Use the current theme from session for highlighting
+            var currentTheme = _themeService.GetCurrentPrismTheme();
+            return HighlightCodeWithTheme(code, language, currentTheme);
         }
         catch (Exception ex)
         {
@@ -134,6 +138,7 @@ public class CodeHighlightingService : ICodeHighlightingService
             "yaml" or "yml" => LanguageGrammars.Yaml,
             "bash" or "shell" => LanguageGrammars.Bash,
             "powershell" or "ps1" => LanguageGrammars.PowerShell,
+            "pug" => LanguageGrammars.Pug,
             _ => LanguageGrammars.Markup // Default fallback
         };
     }

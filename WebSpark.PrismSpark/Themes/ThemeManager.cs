@@ -112,7 +112,7 @@ public class ThemeStyle
 public static class ThemeManager
 {
     private static readonly Dictionary<string, Theme> _themes = new();
-    private static string _defaultTheme = "prism";
+    private static string _defaultTheme = "yeti";
 
     static ThemeManager()
     {
@@ -316,6 +316,48 @@ public static class ThemeManager
                 ["regex"] = new() { Color = "#8abeb7" },
                 ["important"] = new() { Color = "#cc6666", FontWeight = "bold" },
                 ["variable"] = new() { Color = "#cc6666" }
+            }
+        });
+
+        // Yeti theme (light theme compatible with Bootstrap Yeti)
+        RegisterTheme(new Theme
+        {
+            Name = "yeti",
+            Description = "Yeti Light theme",
+            Background = new ThemeStyle { BackgroundColor = "#ffffff" },
+            Foreground = new ThemeStyle { Color = "#212529" },
+            TokenStyles = new Dictionary<string, ThemeStyle>
+            {
+                ["comment"] = new() { Color = "#6c757d", FontStyle = "italic" },
+                ["prolog"] = new() { Color = "#6c757d", FontStyle = "italic" },
+                ["doctype"] = new() { Color = "#6c757d", FontStyle = "italic" },
+                ["cdata"] = new() { Color = "#6c757d", FontStyle = "italic" },
+                ["punctuation"] = new() { Color = "#495057" },
+                ["namespace"] = new() { Opacity = "0.7" },
+                ["property"] = new() { Color = "#007bff" },
+                ["tag"] = new() { Color = "#007bff" },
+                ["boolean"] = new() { Color = "#e83e8c" },
+                ["number"] = new() { Color = "#e83e8c" },
+                ["constant"] = new() { Color = "#e83e8c" },
+                ["symbol"] = new() { Color = "#e83e8c" },
+                ["deleted"] = new() { Color = "#dc3545" },
+                ["selector"] = new() { Color = "#28a745" },
+                ["attr-name"] = new() { Color = "#fd7e14" },
+                ["string"] = new() { Color = "#28a745" },
+                ["char"] = new() { Color = "#28a745" },
+                ["builtin"] = new() { Color = "#20c997" },
+                ["inserted"] = new() { Color = "#28a745" },
+                ["operator"] = new() { Color = "#6f42c1" },
+                ["entity"] = new() { Color = "#6f42c1" },
+                ["url"] = new() { Color = "#007bff" },
+                ["atrule"] = new() { Color = "#007bff" },
+                ["attr-value"] = new() { Color = "#28a745" },
+                ["keyword"] = new() { Color = "#6f42c1", FontWeight = "bold" },
+                ["function"] = new() { Color = "#e83e8c" },
+                ["class-name"] = new() { Color = "#fd7e14" },
+                ["regex"] = new() { Color = "#20c997" },
+                ["important"] = new() { Color = "#dc3545", FontWeight = "bold" },
+                ["variable"] = new() { Color = "#e83e8c" }
             }
         });
 

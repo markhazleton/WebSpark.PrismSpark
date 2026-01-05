@@ -1,0 +1,244 @@
+@using WebSpark.PrismSpark.Demo.Services
+@inject IThemeService ThemeService
+
+<div class="dropdown">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="themeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-palette"></i> Themes
+    </button>
+    <div class="dropdown-menu" aria-labelledby="themeDropdown">
+        <h6 class="dropdown-header">Bootstrap Themes</h6>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="cerulean">Cerulean</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="cosmo">Cosmo</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="flatly">Flatly</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="journal">Journal</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="litera">Litera</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="lumen">Lumen</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="lux">Lux</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="materia">Materia</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="minty">Minty</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="morph">Morph</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="pulse">Pulse</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="quartz">Quartz</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="sandstone">Sandstone</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="simplex">Simplex</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="sketchy">Sketchy</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="spacelab">Spacelab</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="united">United</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="yeti">Yeti</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="zephyr">Zephyr</a>
+        
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">Dark Themes</h6>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="cyborg">Cyborg</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="darkly">Darkly</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="slate">Slate</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="solar">Solar</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="superhero">Superhero</a>
+        <a class="dropdown-item bootstrap-theme-item" href="#" data-theme="vapor">Vapor</a>
+        
+        <div class="dropdown-divider"></div>
+        <h6 class="dropdown-header">Syntax Highlighting</h6>
+        @foreach (var theme in ThemeService.GetAvailablePrismThemes())
+        {
+            <a class="dropdown-item prism-theme-item" href="#" data-theme="@theme">@theme.Replace("-", " ").Replace("_", " ")</a>
+        }
+        
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#" id="resetThemes">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset to Defaults
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle Bootstrap theme changes
+    document.querySelectorAll('.bootstrap-theme-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const themeName = this.getAttribute('data-theme');
+            setBootstrapTheme(themeName);
+        });
+    });
+
+    // Handle PrismSpark theme changes
+    document.querySelectorAll('.prism-theme-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const themeName = this.getAttribute('data-theme');
+            setPrismTheme(themeName);
+        });
+    });
+
+    // Handle reset themes
+    document.getElementById('resetThemes').addEventListener('click', function(e) {
+        e.preventDefault();
+        resetThemes();
+    });
+
+    // Load current theme on page load
+    loadCurrentTheme();
+});
+
+function setBootstrapTheme(themeName) {
+    showThemeLoading(true);
+    
+    fetch('/Theme/SetBootstrapTheme', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ themeName: themeName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update the Bootswatch theme using the existing theme switcher
+            if (window.BootswatchThemeSwitcher) {
+                window.BootswatchThemeSwitcher.setTheme(themeName);
+            }
+            showThemeNotification(`Bootstrap theme changed to ${themeName}`);
+            console.log('Bootstrap theme changed to:', themeName);
+        } else {
+            console.error('Failed to set Bootstrap theme:', data.message);
+            showThemeNotification('Failed to change Bootstrap theme', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error setting Bootstrap theme:', error);
+        showThemeNotification('Error changing Bootstrap theme', 'error');
+    })
+    .finally(() => {
+        showThemeLoading(false);
+    });
+}
+
+function setPrismTheme(themeName) {
+    showThemeLoading(true);
+    
+    fetch('/Theme/SetPrismTheme', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ themeName: themeName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Regenerate and apply the new CSS
+            updatePrismThemeCSS(themeName);
+            showThemeNotification(`Syntax theme changed to ${themeName}`);
+            console.log('PrismSpark theme changed to:', themeName);
+        } else {
+            console.error('Failed to set PrismSpark theme:', data.message);
+            showThemeNotification('Failed to change syntax theme', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error setting PrismSpark theme:', error);
+        showThemeNotification('Error changing syntax theme', 'error');
+    })
+    .finally(() => {
+        showThemeLoading(false);
+    });
+}
+
+function updatePrismThemeCSS(themeName) {
+    // Remove existing PrismSpark theme CSS
+    const existingStyle = document.getElementById('prism-theme-css');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+
+    // Fetch and apply new theme CSS
+    fetch(`/Theme/GetThemeCss?themeName=${encodeURIComponent(themeName)}`)
+        .then(response => response.text())
+        .then(css => {
+            const styleElement = document.createElement('style');
+            styleElement.id = 'prism-theme-css';
+            styleElement.textContent = css;
+            document.head.appendChild(styleElement);
+        })
+        .catch(error => {
+            console.error('Error loading theme CSS:', error);
+        });
+}
+
+function resetThemes() {
+    fetch('/Theme/ResetToDefaults', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Reset Bootstrap theme
+            if (window.BootswatchThemeSwitcher) {
+                window.BootswatchThemeSwitcher.setTheme(data.bootstrapTheme);
+            }
+            // Reset PrismSpark theme
+            updatePrismThemeCSS(data.prismTheme);
+            console.log('Themes reset to defaults');
+        } else {
+            console.error('Failed to reset themes:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error resetting themes:', error);
+    });
+}
+
+function loadCurrentTheme() {
+    fetch('/Theme/GetCurrentTheme')
+        .then(response => response.json())
+        .then(data => {
+            // Apply current PrismSpark theme CSS
+            updatePrismThemeCSS(data.prismTheme);
+            console.log('Current themes loaded:', data);
+        })
+        .catch(error => {
+            console.error('Error loading current theme:', error);
+        });
+}
+
+// Utility functions for UI feedback
+function showThemeLoading(show) {
+    const dropdown = document.getElementById('themeDropdown');
+    if (show) {
+        dropdown.classList.add('theme-loading');
+    } else {
+        dropdown.classList.remove('theme-loading');
+    }
+}
+
+function showThemeNotification(message, type = 'success') {
+    // Remove existing notification
+    const existing = document.querySelector('.theme-notification');
+    if (existing) {
+        existing.remove();
+    }
+    
+    // Create new notification
+    const notification = document.createElement('div');
+    notification.className = `theme-notification alert alert-${type === 'error' ? 'danger' : 'success'}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Show notification
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    // Hide notification after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+</script>
