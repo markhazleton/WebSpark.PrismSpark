@@ -1,3 +1,4 @@
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebSpark.PrismSpark.Demo.Models;
@@ -35,6 +36,31 @@ namespace WebSpark.PrismSpark.Demo.Controllers
         public IActionResult PugDemo()
         {
             return View();
+        }
+
+        public IActionResult MarkdownDemo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RenderMarkdown([FromBody] CodeValidationRequest request)
+        {
+            try
+            {
+                var pipeline = new MarkdownPipelineBuilder()
+                    .UseAdvancedExtensions()
+                    .Build();
+                var renderedHtml = Markdig.Markdown.ToHtml(request.Code ?? string.Empty, pipeline);
+                var highlightedCode = await _codeHighlightingService.HighlightCodeAsync(request.Code ?? string.Empty, "markdown");
+
+                return Json(new { success = true, renderedHtml, highlightedCode });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error rendering markdown");
+                return Json(new { success = false, error = "Error occurred during markdown rendering" });
+            }
         }
 
         [HttpPost]

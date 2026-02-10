@@ -1,0 +1,231 @@
+@{
+    ViewData["Title"] = "Markdown Syntax Highlighting Demo";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Markdown Demo</h1>
+    <p>Interactive markdown editor with syntax highlighting using
+        <a href="https://github.com/MarkHazleton/WebSpark.PrismSpark">WebSpark.PrismSpark</a>
+        and HTML rendering via <a href="https://github.com/xoofx/markdig">Markdig</a>.
+    </p>
+    <nav>
+        <a asp-action="Index" class="btn btn-outline-primary">&larr; Back to Examples</a>
+    </nav>
+</div>
+
+<div class="container mt-4">
+    <!-- Controls -->
+    <div class="d-flex gap-2 mb-3 flex-wrap align-items-center">
+        <button class="btn btn-primary" onclick="highlightAndRenderMarkdown()" title="Highlight source and render HTML">
+            <i class="bi bi-play-fill"></i> Highlight &amp; Render
+        </button>
+        <button class="btn btn-outline-primary" onclick="highlightMarkdownOnly()" title="Syntax highlight the markdown source">
+            <i class="bi bi-brush"></i> Highlight Source
+        </button>
+        <button class="btn btn-outline-success" onclick="renderMarkdownOnly()" title="Render markdown as HTML">
+            <i class="bi bi-filetype-html"></i> Render HTML
+        </button>
+        <button class="btn btn-outline-warning" onclick="clearMarkdownEditor()" title="Clear editor">
+            <i class="bi bi-eraser"></i> Clear
+        </button>
+        <button class="btn btn-outline-secondary" onclick="resetMarkdownSample()" title="Reset to sample markdown">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset Sample
+        </button>
+    </div>
+
+    <!-- Editor and Preview Panels -->
+    <div class="row">
+        <!-- Left: Markdown Editor -->
+        <div class="col-md-6 mb-3">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <strong>Markdown Source</strong>
+                    <span class="badge bg-secondary">Editor</span>
+                </div>
+                <div class="card-body p-0">
+                    <textarea id="markdown-editor" class="form-control border-0 rounded-0" rows="24"
+                        style="font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; resize: vertical; tab-size: 2;"
+                        placeholder="Type your markdown here..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Output Panels -->
+        <div class="col-md-6 mb-3">
+            <!-- Syntax Highlighted Source -->
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <strong>Syntax Highlighted Markdown</strong>
+                    <span class="badge bg-info">PrismSpark</span>
+                </div>
+                <div class="card-body p-2" style="max-height: 300px; overflow-y: auto;">
+                    <pre id="markdown-highlighted" class="language-markdown mb-0"
+                        style="white-space: pre-wrap; tab-size: 2; font-size: 0.85rem;"><code class="language-markdown">Click "Highlight Source" or "Highlight &amp; Render" to see syntax highlighting.</code></pre>
+                </div>
+            </div>
+
+            <!-- Rendered HTML Preview -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <strong>Rendered HTML Preview</strong>
+                    <span class="badge bg-success">Markdig</span>
+                </div>
+                <div class="card-body" id="markdown-rendered"
+                    style="max-height: 300px; overflow-y: auto; font-size: 0.95rem;">
+                    <p class="text-muted">Click "Render HTML" or "Highlight &amp; Render" to see the rendered output.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    const defaultMarkdownSample = `# Welcome to PrismSpark Markdown Demo
+
+This demonstrates **syntax highlighting** for Markdown using [WebSpark.PrismSpark](https://github.com/MarkHazleton/WebSpark.PrismSpark).
+
+## Features
+
+- **Bold text** and *italic text*
+- ~~Strikethrough~~ support
+- [Links](https://example.com) and images
+- Code blocks with syntax highlighting
+
+### Code Examples
+
+Inline code: \`var x = 42;\`
+
+Fenced code block:
+
+\`\`\`csharp
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
+    }
+}
+\`\`\`
+
+## Blockquotes
+
+> Markdown is a lightweight markup language that you can use
+> to add formatting elements to plaintext text documents.
+
+## Lists
+
+### Ordered List
+1. First item
+2. Second item
+3. Third item
+
+### Unordered List
+- Apples
+- Bananas
+- Cherries
+
+## Tables
+
+| Feature        | Status    | Notes           |
+|----------------|-----------|-----------------|
+| Headings       | Supported | H1 through H6   |
+| Bold/Italic    | Supported | Standard syntax  |
+| Code Blocks    | Supported | Fenced + inline  |
+| Tables         | Supported | GFM extension    |
+
+## Horizontal Rule
+
+---
+
+*Powered by WebSpark.PrismSpark and Markdig*
+`;
+
+    // Load sample on page ready
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('markdown-editor').value = defaultMarkdownSample;
+        highlightAndRenderMarkdown();
+    });
+
+    function resetMarkdownSample() {
+        document.getElementById('markdown-editor').value = defaultMarkdownSample;
+        highlightAndRenderMarkdown();
+    }
+
+    function clearMarkdownEditor() {
+        document.getElementById('markdown-editor').value = '';
+        document.getElementById('markdown-highlighted').innerHTML =
+            '<code class="language-markdown">Editor is empty.</code>';
+        document.getElementById('markdown-rendered').innerHTML =
+            '<p class="text-muted">Editor is empty.</p>';
+    }
+
+    async function highlightAndRenderMarkdown() {
+        const code = document.getElementById('markdown-editor').value;
+        if (!code.trim()) {
+            clearMarkdownEditor();
+            return;
+        }
+        try {
+            const response = await fetch('/Home/RenderMarkdown', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, language: 'markdown' })
+            });
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('markdown-highlighted').innerHTML =
+                    '<code class="language-markdown">' + data.highlightedCode + '</code>';
+                document.getElementById('markdown-rendered').innerHTML = data.renderedHtml;
+            } else {
+                document.getElementById('markdown-rendered').innerHTML =
+                    '<p class="text-danger">Error: ' + (data.error || 'Unknown error') + '</p>';
+            }
+        } catch (err) {
+            document.getElementById('markdown-rendered').innerHTML =
+                '<p class="text-danger">Request failed: ' + err.message + '</p>';
+        }
+    }
+
+    async function highlightMarkdownOnly() {
+        const code = document.getElementById('markdown-editor').value;
+        if (!code.trim()) return;
+        try {
+            const response = await fetch('/Home/HighlightCode', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, language: 'markdown' })
+            });
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('markdown-highlighted').innerHTML =
+                    '<code class="language-markdown">' + data.highlightedCode + '</code>';
+            }
+        } catch (err) {
+            console.error('Highlight failed:', err);
+        }
+    }
+
+    async function renderMarkdownOnly() {
+        const code = document.getElementById('markdown-editor').value;
+        if (!code.trim()) return;
+        try {
+            const response = await fetch('/Home/RenderMarkdown', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code: code, language: 'markdown' })
+            });
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('markdown-rendered').innerHTML = data.renderedHtml;
+            } else {
+                document.getElementById('markdown-rendered').innerHTML =
+                    '<p class="text-danger">Error: ' + (data.error || 'Unknown error') + '</p>';
+            }
+        } catch (err) {
+            document.getElementById('markdown-rendered').innerHTML =
+                '<p class="text-danger">Request failed: ' + err.message + '</p>';
+        }
+    }
+</script>
+}

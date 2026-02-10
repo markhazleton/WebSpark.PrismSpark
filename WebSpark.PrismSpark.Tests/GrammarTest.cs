@@ -1,11 +1,12 @@
 using System.Linq;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebSpark.PrismSpark.Tests;
 
+[TestClass]
 public class GrammarTest
 {
-    [Fact]
+    [TestMethod]
     public void Create_Sorted_Grammar_Ok()
     {
         var grammar = new Grammar
@@ -20,7 +21,7 @@ public class GrammarTest
 
         var keys = grammar.Select(x => x.Key).ToArray();
         var expected = new[] { "hello", "world", "foo" };
-        Assert.Equal(expected, keys);
+        CollectionAssert.AreEqual(expected, keys);
 
     }
 }

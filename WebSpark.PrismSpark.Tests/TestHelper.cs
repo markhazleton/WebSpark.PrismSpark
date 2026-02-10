@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebSpark.PrismSpark.Tests;
 
@@ -103,8 +103,8 @@ public static class TestHelper
 
     private static void AssertDeepStrictEqual(IReadOnlyList<Token> simpleTokens, IReadOnlyList<Token> expected)
     {
-        Assert.NotNull(simpleTokens);
-        Assert.Equal(expected.Count, simpleTokens.Count);
+        Assert.IsNotNull(simpleTokens);
+        Assert.AreEqual(expected.Count, simpleTokens.Count);
 
         for (var i = 0; i < expected.Count; i++)
         {
@@ -113,16 +113,18 @@ public static class TestHelper
 
             if (expectedToken is StringToken expectedStringToken)
             {
-                var stringToken = Assert.IsType<StringToken>(token);
-                Assert.Equal(expectedStringToken.Type, stringToken.Type);
-                Assert.Equal(expectedStringToken.Content, stringToken.Content);
+                Assert.IsInstanceOfType<StringToken>(token);
+                var stringToken = (StringToken)token;
+                Assert.AreEqual(expectedStringToken.Type, stringToken.Type);
+                Assert.AreEqual(expectedStringToken.Content, stringToken.Content);
                 continue;
             }
 
             if (expectedToken is not StreamToken expectedStreamToken)
                 continue;
 
-            var streamToken = Assert.IsType<StreamToken>(token);
+            Assert.IsInstanceOfType<StreamToken>(token);
+            var streamToken = (StreamToken)token;
             AssertDeepStrictEqual(streamToken.Content, expectedStreamToken.Content);
         }
     }

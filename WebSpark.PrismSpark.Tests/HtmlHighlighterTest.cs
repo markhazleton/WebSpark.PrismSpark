@@ -1,11 +1,12 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebSpark.PrismSpark.Highlighting;
-using Xunit;
 
 namespace WebSpark.PrismSpark.Tests;
 
+[TestClass]
 public class HtmlHighlighterTest
 {
-    [Fact]
+    [TestMethod]
     public void Highlight_markup_entity_ok()
     {
         var htmlHighlighter = new HtmlHighlighter();
@@ -23,10 +24,10 @@ public class HtmlHighlighterTest
 <span class=""token entity"">&amp;#x26f5;</span>";
 
         var html = htmlHighlighter.Highlight(code, LanguageGrammars.Markup, "html");
-        Assert.Equal(expected, html);
+        Assert.AreEqual(expected, html);
     }
 
-    [Fact]
+    [TestMethod]
     public void Highlight_C_hello_world_ok()
     {
         var htmlHighlighter = new HtmlHighlighter();
@@ -48,6 +49,6 @@ int main()
 <span class=""token punctuation"">}</span>";
 
         var html = htmlHighlighter.Highlight(code, LanguageGrammars.C, "c");
-        Assert.Equal(expected, html);
+        Assert.AreEqual(expected, html);
     }
 }

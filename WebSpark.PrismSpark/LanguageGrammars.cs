@@ -37,6 +37,7 @@ public static class LanguageGrammars
         AddDefinition<Python>("python", "py");
         AddDefinition<Java>("java");
         AddDefinition<Pug>("pug");
+        AddDefinition<Markdown>("markdown", "md");
     }
 
     /// <summary>
@@ -141,4 +142,6 @@ public static class LanguageGrammars
     public static Grammar Java => GetGrammar("java");
     /// <summary>Gets the Pug programming language grammar.</summary>
     public static Grammar Pug => GetGrammar("pug");
+    /// <summary>Gets the Markdown language grammar.</summary>
+    public static Grammar Markdown => GetGrammar("markdown");
 }

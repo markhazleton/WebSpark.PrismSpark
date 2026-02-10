@@ -1,11 +1,12 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WebSpark.PrismSpark.Highlighting;
-using Xunit;
 
 namespace WebSpark.PrismSpark.Tests;
 
+[TestClass]
 public class IntegrationTests
 {
-    [Fact]
+    [TestMethod]
     public void ThemedHtmlHighlighter_WithCSharpCode_GeneratesCorrectOutput()
     {
         // Arrange
@@ -25,13 +26,13 @@ public class Example
         var result = highlighter.Highlight(code, "csharp");
 
         // Assert
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
-        Assert.Contains("token", result);
-        Assert.Contains("keyword", result);
+        Assert.IsNotNull(result);
+        Assert.IsTrue(result.Length > 0);
+        StringAssert.Contains(result, "token");
+        StringAssert.Contains(result, "keyword");
     }
 
-    [Fact]
+    [TestMethod]
     public void ThemedHtmlHighlighter_GenerateHtmlPage_CreatesCompleteHtml()
     {
         // Arrange
@@ -42,15 +43,15 @@ public class Example
         var result = highlighter.GenerateHtmlPage(code, "javascript", "Test Page");
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Contains("<!DOCTYPE html>", result);
-        Assert.Contains("<title>Test Page</title>", result);
-        Assert.Contains("<style>", result);
-        Assert.Contains("Hello, World!", result);
+        Assert.IsNotNull(result);
+        StringAssert.Contains(result, "<!DOCTYPE html>");
+        StringAssert.Contains(result, "<title>Test Page</title>");
+        StringAssert.Contains(result, "<style>");
+        StringAssert.Contains(result, "Hello, World!");
     }
 
 
-    [Fact]
+    [TestMethod]
     public void EnhancedHtmlHighlighter_WithOptions_AppliesConfiguration()
     {
         // Arrange
@@ -66,7 +67,7 @@ public class Example
         var result = highlighter.Highlight(code, LanguageGrammars.JavaScript, "javascript", options);
 
         // Assert
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
+        Assert.IsNotNull(result);
+        Assert.IsTrue(result.Length > 0);
     }
 }

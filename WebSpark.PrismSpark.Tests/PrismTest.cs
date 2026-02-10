@@ -1,11 +1,12 @@
 using System.Linq;
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebSpark.PrismSpark.Tests;
 
+[TestClass]
 public class PrismTest
 {
-    [Fact]
+    [TestMethod]
     public void Tokenize_greedy_Ok()
     {
         var grammar = new Grammar
@@ -24,7 +25,7 @@ public class PrismTest
             });
     }
 
-    [Fact]
+    [TestMethod]
     public void Tokenize_greedy_lookbehind_Ok()
     {
         var grammar = new Grammar
@@ -47,7 +48,7 @@ public class PrismTest
             });
     }
 
-    [Fact]
+    [TestMethod]
     public void Tokenize_should_correctly_rematch_tokens()
     {
         var grammar = new Grammar
@@ -78,7 +79,7 @@ public class PrismTest
             });
     }
 
-    [Fact]
+    [TestMethod]
     public void Tokenize_should_always_match_tokens_against_the_whole_text()
     {
         var grammar = new Grammar
@@ -95,7 +96,7 @@ public class PrismTest
             });
     }
 
-    [Fact]
+    [TestMethod]
     public void Tokenize_from_prismjs_issue3052()
     {
         // If a greedy pattern creates an empty token at the end of the string, then this token should be discarded
