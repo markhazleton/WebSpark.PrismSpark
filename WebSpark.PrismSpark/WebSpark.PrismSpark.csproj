@@ -15,12 +15,14 @@
         <Title>PrismSpark - Syntax Highlighting Library</Title>
         <Description>A comprehensive C#/.NET port of PrismJS that provides both tokenization and
             syntax highlighting capabilities. Transform source code into tokens or generate HTML
-            markup with CSS classes for beautiful syntax highlighting. Supports 20+ programming
-            languages including C#, JavaScript, Python, SQL, JSON, XML, and more. Now with full .NET 10.0 LTS support.</Description>
-        <Summary>High-performance syntax highlighting library for .NET with support for 20+
-            languages</Summary>
+            markup with CSS classes for beautiful syntax highlighting. Supports 24 programming
+            languages including C#, JavaScript, Python, Markdown, SQL, JSON, XML, Pug, and more.
+            Features plugin system, theme engine, hooks, and full .NET 10.0 LTS support.
+            Validated with 52 MSTest tests.</Description>
+        <Summary>High-performance syntax highlighting library for .NET with support for 24
+            languages including Markdown</Summary>
         <PackageTags>
-            syntax-highlighting;prism;tokenizer;code-highlighting;html;css;javascript;csharp;python;sql;json;xml;markdown;parsing;web;dev-tools;net10;dotnet10;lts</PackageTags>
+            syntax-highlighting;prism;tokenizer;code-highlighting;html;css;javascript;csharp;python;sql;json;xml;markdown;pug;mstest;parsing;web;dev-tools;net10;dotnet10;lts</PackageTags>
         <Category>Development</Category>
 
         <!-- Authors & Company -->
@@ -49,20 +51,27 @@
 
         <!-- Release Notes -->
         <PackageReleaseNotes>
+            v1.2.0:
+            - Added Markdown grammar with GFM support (tables, fenced code blocks, front matter, bold, italic, links, images)
+            - Added interactive Markdown demo page with Markdig HTML rendering
+            - Expanded to 24 language grammars (added Markdown with md alias)
+            - Updated all documentation to reflect current feature set
+            - 52 MSTest tests passing (100% pass rate)
+            - Added Testing and Interactive Demo sections to landing page
+
             v1.1.0 (2025-01-05):
-            - ✨ Upgraded to .NET 10.0 LTS (Long Term Support through November 2026)
-            - 🔧 Fixed TimeSpan.FromMinutes compatibility for improved forward compatibility
-            - 📚 Updated documentation and README files for .NET 10.0
-            - ✅ Validated with comprehensive test suite (51/52 tests passing, 98% success rate)
-            - 🚀 Benefits from .NET 10 performance improvements and enhanced regex engine
-            - 📦 All NuGet dependencies compatible with .NET 10.0
-            - 🔄 Maintains backward compatibility with .NET 9.0
+            - Upgraded to .NET 10.0 LTS (Long Term Support through November 2026)
+            - Fixed TimeSpan.FromMinutes compatibility for improved forward compatibility
+            - Updated documentation and README files for .NET 10.0
+            - Benefits from .NET 10 performance improvements and enhanced regex engine
+            - All NuGet dependencies compatible with .NET 10.0
+            - Maintains backward compatibility with .NET 9.0
 
             v1.0.0 (2024):
             - Initial stable release
             - Complete PrismJS port with 20+ language support
             - High-performance tokenization and HTML generation
-            - Comprehensive test coverage (51 tests)
+            - Comprehensive test coverage
             - Full .NET 9.0 support
             - Enhanced C# idioms and best practices
             - Complete documentation and examples

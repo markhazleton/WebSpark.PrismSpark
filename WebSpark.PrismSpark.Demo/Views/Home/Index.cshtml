@@ -14,12 +14,15 @@
                         <i class="bi bi-code-slash me-3"></i>WebSpark.PrismSpark
                     </h1>
                     <p class="fs-4 mb-4">
-                        A powerful C# port of PrismJS for server-side syntax highlighting with advanced features, 
-                        theming support, and 20+ programming languages.
+                        A powerful C# port of PrismJS for server-side syntax highlighting with advanced features,
+                        theming support, and 24 programming language grammars.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
                         <a class="btn btn-warning btn-lg px-4" asp-controller="Home" asp-action="Edit">
                             <i class="bi bi-pencil-square me-2"></i>Try Live Editor
+                        </a>
+                        <a class="btn btn-light btn-lg px-4" asp-controller="Home" asp-action="MarkdownDemo">
+                            <i class="bi bi-markdown me-2"></i>Markdown Demo
                         </a>
                         <a class="btn btn-outline-light btn-lg px-4" href="#installation">
                             <i class="bi bi-download me-2"></i>Get Started
@@ -46,8 +49,8 @@
                             <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-block mb-3">
                                 <i class="bi bi-code text-primary fs-1"></i>
                             </div>
-                            <h5 class="card-title">20+ Programming Languages</h5>
-                            <p class="card-text">Support for C#, JavaScript, Python, SQL, JSON, HTML, CSS, XML, YAML, Bash, PowerShell, Java, Rust, C, C++, and more.</p>
+                            <h5 class="card-title">24 Programming Languages</h5>
+                            <p class="card-text">Support for C#, JavaScript, Python, SQL, JSON, HTML, CSS, XML, YAML, Bash, PowerShell, Java, Rust, Go, Markdown, Pug, and more.</p>
                         </div>
                     </div>
                 </div>
@@ -437,8 +440,20 @@ var highlighter = new EnhancedHtmlHighlighter();
                     </div>
                     <div class="col-lg-3 col-md-4 col-sm-6">
                         <div class="d-flex align-items-center">
-                            <i class="bi bi-plus-circle text-info me-2"></i>
-                            <span>And more...</span>
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Pug</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Lua</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Batch / CMD</span>
                         </div>
                     </div>
                 </div>
@@ -573,6 +588,95 @@ var highlighter = new EnhancedHtmlHighlighter();
                                 <li class="mb-2"><code>HighlightOptions</code> - Configuration</li>
                                 <li class="mb-2"><code>HooksSystem</code> - Event hooks</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testing & Quality -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-check2-all text-primary me-2"></i>Testing & Quality
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="display-4 fw-bold text-primary mb-2">52</div>
+                            <h5>MSTest Tests</h5>
+                            <p class="card-text text-muted">Comprehensive test suite using MSTest framework covering grammars, tokenization, highlighting, and integration scenarios.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="display-4 fw-bold text-success mb-2">100%</div>
+                            <h5>Pass Rate</h5>
+                            <p class="card-text text-muted">All tests pass across grammar creation, HTML highlighting, language tokenization, core engine, integration, and utility functions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="display-4 fw-bold text-info mb-2">24</div>
+                            <h5>Language Grammars</h5>
+                            <p class="card-text text-muted">Each grammar validated with data-driven tests against PrismJS test cases ensuring correctness and compatibility.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Demos -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="mb-4">
+                <i class="bi bi-window-stack text-primary me-2"></i>Interactive Demo Pages
+            </h2>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-code-slash text-primary fs-1 mb-3 d-block"></i>
+                            <h5>Multi-Language Demo</h5>
+                            <p class="card-text text-muted">Explore syntax highlighting for JSON, C#, JavaScript, and Pug with validation and formatting controls.</p>
+                            <a asp-controller="Home" asp-action="Demo" class="btn btn-outline-primary btn-sm">View Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-pencil-square text-success fs-1 mb-3 d-block"></i>
+                            <h5>Live Code Editor</h5>
+                            <p class="card-text text-muted">Interactive editor supporting 7 languages with real-time highlighting, validation, and code formatting.</p>
+                            <a asp-controller="Home" asp-action="Edit" class="btn btn-outline-success btn-sm">Try Editor</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-filetype-pug text-warning fs-1 mb-3 d-block"></i>
+                            <h5>PUG Demo</h5>
+                            <p class="card-text text-muted">Side-by-side comparison of raw PUG template code and PrismSpark-highlighted output.</p>
+                            <a asp-controller="Home" asp-action="PugDemo" class="btn btn-outline-warning btn-sm">View PUG</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-markdown text-danger fs-1 mb-3 d-block"></i>
+                            <h5>Markdown Demo</h5>
+                            <p class="card-text text-muted">Interactive markdown editor with PrismSpark syntax highlighting and Markdig HTML rendering preview.</p>
+                            <a asp-controller="Home" asp-action="MarkdownDemo" class="btn btn-outline-danger btn-sm">Try Markdown</a>
                         </div>
                     </div>
                 </div>

@@ -9,13 +9,14 @@ A modern, high-performance C#/.NET port of [PrismJS](https://github.com/PrismJS/
 
 ## Features
 
-- **Tokenization & Highlighting** for 20+ languages
+- **Tokenization & Highlighting** for 24 languages (C#, JavaScript, Python, Markdown, Pug, and more)
 - **Plugin System**: Line numbers, copy-to-clipboard, toolbar, and more
 - **Theme System**: Built-in and custom themes, CSS generation
 - **Hooks & Extensibility**: Event-driven customization
 - **Advanced Options**: Line highlighting, custom CSS classes, context/metadata
 - **Performance**: Async processing, caching, and efficient rendering
-- **✨ .NET 10.0 LTS Support**: Fully compatible with the latest .NET Long Term Support release
+- **.NET 10.0 LTS Support**: Fully compatible with the latest .NET Long Term Support release
+- **Comprehensive Test Suite**: 52 MSTest tests covering grammars, highlighting, tokenization, and integration
 
 ---
 
@@ -144,19 +145,64 @@ ThemeManager.RegisterTheme(theme);
 
 ---
 
-## Supported Languages
+## Supported Languages (24 Grammars)
 
-| Language | Aliases |
-|----------|---------|
-| C#       | csharp, cs, dotnet |
-| JavaScript | javascript, js |
-| Python   | python, py |
-| HTML/XML | markup, html, xml |
-| CSS      | css |
-| SQL      | sql |
-| Bash     | bash, shell |
-| PowerShell | powershell, ps1 |
-| ...      | ... |
+| Language     | Aliases                              |
+|--------------|--------------------------------------|
+| C            | c                                    |
+| C-like       | clike                                |
+| C#           | csharp, cs, dotnet                   |
+| C++          | cpp, c++                             |
+| ASP.NET      | aspnet, aspx                         |
+| Razor        | cshtml, razor                        |
+| CIL          | cil                                  |
+| JavaScript   | javascript, js                       |
+| RegExp       | regexp, regex                        |
+| HTML/XML     | markup, html, xml, svg, mathml, atom, rss |
+| CSS          | css                                  |
+| SQL          | sql                                  |
+| JSON         | json, web-manifest                   |
+| Python       | python, py                           |
+| Java         | java                                 |
+| Bash         | bash, shell                          |
+| Batch        | batch, cmd                           |
+| PowerShell   | powershell, ps1                      |
+| YAML         | yaml, yml                            |
+| Go           | go                                   |
+| Rust         | rust                                 |
+| Lua          | lua                                  |
+| Pug          | pug                                  |
+| Markdown     | markdown, md                         |
+
+---
+
+## Interactive Demo Pages
+
+The demo web application includes several interactive pages:
+
+- **Demo** - Server-side syntax highlighting showcase for multiple languages
+- **Live Editor** - Interactive code editor with real-time highlighting, validation, and formatting
+- **PUG Demo** - Side-by-side raw vs. highlighted PUG template code
+- **Markdown Demo** - Interactive markdown editor with PrismSpark syntax highlighting and Markdig HTML rendering
+
+---
+
+## Testing
+
+The project includes a comprehensive MSTest test suite with 52 tests:
+
+- **GrammarTest** - Grammar creation, sorting, and token insertion
+- **HtmlHighlighterTest** - HTML entity and C language highlighting
+- **LanguageTokenizeTest** - Tokenization across multiple languages
+- **PrismTest** - Core Prism engine functionality
+- **IntegrationTests** - End-to-end highlighting workflows
+- **UtilTest** - Utility function validation
+
+Run the tests:
+
+```bash
+dotnet test
+```
 
 ---
 

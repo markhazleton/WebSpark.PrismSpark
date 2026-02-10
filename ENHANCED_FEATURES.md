@@ -1,10 +1,10 @@
-# PrismSharp - Enhanced Features
+# PrismSpark - Enhanced Features
 
-This document describes the advanced features and extensibility of PrismSharp, the .NET port of PrismJS.
+This document describes the advanced features and extensibility of PrismSpark, the .NET port of PrismJS.
 
 ---
 
-## 🚀 New Features
+## New Features
 
 ### Plugin System
 
@@ -50,10 +50,39 @@ var theme = new Theme
 ThemeManager.RegisterTheme(theme);
 ```
 
-### Extended Language Support
+### Language Support (24 Grammars)
 
-- Rust, Go, Kotlin, Swift, YAML, Markdown, and more
-- TypeScript, PHP, Ruby, and language aliases
+PrismSpark supports 24 language grammars with full alias support:
+
+- **Systems**: C, C++, C-like, CIL
+- **Web**: HTML/XML (Markup), CSS, JavaScript, JSON, Pug
+- **.NET**: C#, ASP.NET, Razor (CSHtml)
+- **Scripting**: Python, Bash, PowerShell, Batch, Lua
+- **Enterprise**: Java, SQL, Go, Rust
+- **Data/Config**: YAML, RegExp
+- **Documentation**: Markdown (with GFM tables, fenced code blocks, front matter)
+
+### Markdown Grammar
+
+The Markdown grammar provides syntax highlighting for:
+
+- Headings (ATX `#` through `######` and Setext underlines)
+- Bold (`**text**`), italic (`*text*`), and strikethrough (`~~text~~`)
+- Links `[text](url)` and images `![alt](url)`
+- Fenced code blocks (` ``` `) and inline code (`` `code` ``)
+- Blockquotes, ordered and unordered lists
+- GFM tables with header/data row distinction
+- Horizontal rules and front matter blocks
+- URL references and autolinks
+
+### Interactive Demo Application
+
+The demo web application showcases all PrismSpark features:
+
+- **Demo Page** - Multi-language syntax highlighting gallery
+- **Live Editor** - Interactive code editing with real-time highlighting, validation, and formatting
+- **PUG Demo** - Side-by-side raw vs. highlighted PUG template code
+- **Markdown Demo** - Interactive editor with PrismSpark syntax highlighting and Markdig HTML rendering
 
 ### Utility Functions
 
@@ -86,7 +115,7 @@ var context = new HighlightContext
 
 ---
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### Initialization
 
@@ -125,14 +154,14 @@ toolbarPlugin.SetOption("showSelectAll", true);
 
 ---
 
-## 🎯 PrismJS Feature Parity
+## PrismJS Feature Parity
 
 - [x] Plugin system
 - [x] Hooks system
 - [x] Line numbers, line highlighting, copy-to-clipboard, autolinker, show language, toolbar, command line, normalize whitespace, file highlight, custom class
 - [x] Theme system with CSS generation
 - [x] Multiple built-in themes
-- [x] Extended language support
+- [x] 24 language grammars (including Markdown and Pug)
 - [x] Utility functions
 - [x] Context and metadata system
 - [x] Advanced HTML generation
@@ -145,10 +174,24 @@ toolbarPlugin.SetOption("showSelectAll", true);
 - Rich metadata support
 - Fluent configuration API
 - Integrated utility functions
+- Markdown rendering with Markdig integration (demo app)
 
 ---
 
-## 🚀 Performance & Extensibility
+## Testing
+
+The project includes a comprehensive MSTest test suite with 52 tests:
+
+- **GrammarTest** - Grammar creation, sorting, and token insertion
+- **HtmlHighlighterTest** - HTML entity and C language highlighting
+- **LanguageTokenizeTest** - Tokenization across multiple languages with data-driven tests
+- **PrismTest** - Core Prism engine functionality
+- **IntegrationTests** - End-to-end highlighting workflows
+- **UtilTest** - Utility function validation
+
+---
+
+## Performance & Extensibility
 
 - Lazy loading of grammars
 - Plugin dependency resolution
@@ -159,4 +202,4 @@ toolbarPlugin.SetOption("showSelectAll", true);
 - Grammar extension and modification
 - Token manipulation utilities
 
-PrismSharp is a powerful, extensible syntax highlighting library for .NET, rivaling and extending PrismJS while maintaining .NET performance and type safety.
+PrismSpark is a powerful, extensible syntax highlighting library for .NET, rivaling and extending PrismJS while maintaining .NET performance and type safety.

@@ -10,13 +10,14 @@ A comprehensive, modern C#/.NET port of [PrismJS](https://github.com/PrismJS/pri
 
 ## Features
 
-- Tokenization & highlighting for 20+ languages
+- Tokenization & highlighting for 24 languages
 - Plugin system: line numbers, copy-to-clipboard, toolbar, and more
 - Theme system: built-in and custom themes, CSS generation
 - Hooks & extensibility: event-driven customization
 - Advanced options: line highlighting, custom CSS classes, context/metadata
 - High performance: async processing, caching, efficient rendering
-- **✨ .NET 10.0 LTS Support**: Optimized for the latest .NET Long Term Support release
+- .NET 10.0 LTS Support: Optimized for the latest .NET Long Term Support release
+- Comprehensive MSTest suite: 52 tests covering grammars, tokenization, highlighting, and integration
 
 ---
 
@@ -118,19 +119,34 @@ ThemeManager.RegisterTheme(theme);
 
 ---
 
-## Supported Languages
+## Supported Languages (24 Grammars)
 
-| Language | Aliases |
-|----------|---------|
-| C#       | csharp, cs, dotnet |
-| JavaScript | javascript, js |
-| Python   | python, py |
-| HTML/XML | markup, html, xml |
-| CSS      | css |
-| SQL      | sql |
-| Bash     | bash, shell |
-| PowerShell | powershell, ps1 |
-| ...      | ... |
+| Language     | Aliases                              |
+|--------------|--------------------------------------|
+| C            | c                                    |
+| C-like       | clike                                |
+| C#           | csharp, cs, dotnet                   |
+| C++          | cpp, c++                             |
+| ASP.NET      | aspnet, aspx                         |
+| Razor        | cshtml, razor                        |
+| CIL          | cil                                  |
+| JavaScript   | javascript, js                       |
+| RegExp       | regexp, regex                        |
+| HTML/XML     | markup, html, xml, svg, mathml, atom, rss |
+| CSS          | css                                  |
+| SQL          | sql                                  |
+| JSON         | json, web-manifest                   |
+| Python       | python, py                           |
+| Java         | java                                 |
+| Bash         | bash, shell                          |
+| Batch        | batch, cmd                           |
+| PowerShell   | powershell, ps1                      |
+| YAML         | yaml, yml                            |
+| Go           | go                                   |
+| Rust         | rust                                 |
+| Lua          | lua                                  |
+| Pug          | pug                                  |
+| Markdown     | markdown, md                         |
 
 ---
 
