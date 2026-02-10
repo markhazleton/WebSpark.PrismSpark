@@ -7,6 +7,7 @@
     <p>Interactive markdown editor with syntax highlighting using
         <a href="https://github.com/MarkHazleton/WebSpark.PrismSpark">WebSpark.PrismSpark</a>
         and HTML rendering via <a href="https://github.com/xoofx/markdig">Markdig</a>.
+        Mermaid diagrams are rendered client-side with <a href="https://mermaid.js.org/">Mermaid.js</a>.
     </p>
     <nav>
         <a asp-action="Index" class="btn btn-outline-primary">&larr; Back to Examples</a>
@@ -40,12 +41,10 @@
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <strong>Markdown Source</strong>
-                    <span class="badge bg-secondary">Editor</span>
+                    <span class="badge bg-secondary">EasyMDE Editor</span>
                 </div>
                 <div class="card-body p-0">
-                    <textarea id="markdown-editor" class="form-control border-0 rounded-0" rows="24"
-                        style="font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 0.9rem; resize: vertical; tab-size: 2;"
-                        placeholder="Type your markdown here..."></textarea>
+                    <textarea id="markdown-editor"></textarea>
                 </div>
             </div>
         </div>
@@ -68,16 +67,23 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <strong>Rendered HTML Preview</strong>
-                    <span class="badge bg-success">Markdig</span>
+                    <span class="badge bg-success">Markdig + Mermaid.js</span>
                 </div>
                 <div class="card-body" id="markdown-rendered"
-                    style="max-height: 300px; overflow-y: auto; font-size: 0.95rem;">
+                    style="max-height: 400px; overflow-y: auto; font-size: 0.95rem;">
                     <p class="text-muted">Click "Render HTML" or "Highlight &amp; Render" to see the rendered output.</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- EasyMDE CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+<!-- Mermaid.js -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 
 @section Scripts {
 <script>
@@ -91,6 +97,7 @@ This demonstrates **syntax highlighting** for Markdown using [WebSpark.PrismSpar
 - ~~Strikethrough~~ support
 - [Links](https://example.com) and images
 - Code blocks with syntax highlighting
+- Mermaid diagrams rendered client-side
 
 ### Code Examples
 
@@ -133,35 +140,103 @@ public class HelloWorld
 | Bold/Italic    | Supported | Standard syntax  |
 | Code Blocks    | Supported | Fenced + inline  |
 | Tables         | Supported | GFM extension    |
+| Mermaid        | Supported | Client-side SVG  |
+
+## Mermaid Diagram
+
+\`\`\`mermaid
+graph TD
+    A[Markdown Source] --> B[PrismSpark]
+    A --> C[Markdig]
+    B --> D[Syntax Highlighted Code]
+    C --> E[Rendered HTML]
+    E --> F[Mermaid.js]
+    F --> G[SVG Diagrams]
+\`\`\`
 
 ## Horizontal Rule
 
 ---
 
-*Powered by WebSpark.PrismSpark and Markdig*
+*Powered by WebSpark.PrismSpark, Markdig, and Mermaid.js*
 `;
 
-    // Load sample on page ready
+    // Initialize Mermaid (manual rendering mode)
+    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+
+    // Initialize EasyMDE
+    let easyMDE;
     document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('markdown-editor').value = defaultMarkdownSample;
+        easyMDE = new EasyMDE({
+            element: document.getElementById('markdown-editor'),
+            initialValue: defaultMarkdownSample,
+            spellChecker: false,
+            autofocus: false,
+            status: false,
+            minHeight: '450px',
+            toolbar: [
+                'bold', 'italic', 'strikethrough', '|',
+                'heading-1', 'heading-2', 'heading-3', '|',
+                'code', 'quote', 'unordered-list', 'ordered-list', '|',
+                'link', 'image', 'table', 'horizontal-rule', '|',
+                'preview', 'side-by-side', 'fullscreen', '|',
+                'guide'
+            ],
+            previewRender: false
+        });
         highlightAndRenderMarkdown();
     });
 
+    function getEditorValue() {
+        return easyMDE ? easyMDE.value() : document.getElementById('markdown-editor').value;
+    }
+
+    function setEditorValue(val) {
+        if (easyMDE) {
+            easyMDE.value(val);
+        } else {
+            document.getElementById('markdown-editor').value = val;
+        }
+    }
+
     function resetMarkdownSample() {
-        document.getElementById('markdown-editor').value = defaultMarkdownSample;
+        setEditorValue(defaultMarkdownSample);
         highlightAndRenderMarkdown();
     }
 
     function clearMarkdownEditor() {
-        document.getElementById('markdown-editor').value = '';
+        setEditorValue('');
         document.getElementById('markdown-highlighted').innerHTML =
             '<code class="language-markdown">Editor is empty.</code>';
         document.getElementById('markdown-rendered').innerHTML =
             '<p class="text-muted">Editor is empty.</p>';
     }
 
+    async function renderMermaidDiagrams() {
+        const container = document.getElementById('markdown-rendered');
+        const mermaidDivs = container.querySelectorAll('div.mermaid, code.language-mermaid');
+        if (mermaidDivs.length === 0) return;
+
+        // For code blocks that Markdig wraps in <pre><code class="language-mermaid">,
+        // unwrap them into <div class="mermaid"> for mermaid.js to process
+        const preCodes = container.querySelectorAll('pre > code.language-mermaid');
+        preCodes.forEach(code => {
+            const pre = code.parentElement;
+            const div = document.createElement('div');
+            div.className = 'mermaid';
+            div.textContent = code.textContent;
+            pre.replaceWith(div);
+        });
+
+        try {
+            await mermaid.run({ nodes: container.querySelectorAll('div.mermaid') });
+        } catch (err) {
+            console.warn('Mermaid rendering error:', err);
+        }
+    }
+
     async function highlightAndRenderMarkdown() {
-        const code = document.getElementById('markdown-editor').value;
+        const code = getEditorValue();
         if (!code.trim()) {
             clearMarkdownEditor();
             return;
@@ -177,6 +252,7 @@ public class HelloWorld
                 document.getElementById('markdown-highlighted').innerHTML =
                     '<code class="language-markdown">' + data.highlightedCode + '</code>';
                 document.getElementById('markdown-rendered').innerHTML = data.renderedHtml;
+                await renderMermaidDiagrams();
             } else {
                 document.getElementById('markdown-rendered').innerHTML =
                     '<p class="text-danger">Error: ' + (data.error || 'Unknown error') + '</p>';
@@ -188,7 +264,7 @@ public class HelloWorld
     }
 
     async function highlightMarkdownOnly() {
-        const code = document.getElementById('markdown-editor').value;
+        const code = getEditorValue();
         if (!code.trim()) return;
         try {
             const response = await fetch('/Home/HighlightCode', {
@@ -207,7 +283,7 @@ public class HelloWorld
     }
 
     async function renderMarkdownOnly() {
-        const code = document.getElementById('markdown-editor').value;
+        const code = getEditorValue();
         if (!code.trim()) return;
         try {
             const response = await fetch('/Home/RenderMarkdown', {
@@ -218,6 +294,7 @@ public class HelloWorld
             const data = await response.json();
             if (data.success) {
                 document.getElementById('markdown-rendered').innerHTML = data.renderedHtml;
+                await renderMermaidDiagrams();
             } else {
                 document.getElementById('markdown-rendered').innerHTML =
                     '<p class="text-danger">Error: ' + (data.error || 'Unknown error') + '</p>';
