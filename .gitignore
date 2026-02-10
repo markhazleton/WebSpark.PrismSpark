@@ -1,9 +1,54 @@
+# IDE and Editor
 .idea/
 .vscode/
+/.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
 bin/
 obj/
 output/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
-*.nuget
-*.user
-/.vs
+# NuGet
+*.nupkg
+*.snupkg
+nupkgs/
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+artifacts/
+packages/
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+
+# Temporary files
+*.tmp
+*.temp
+*_output.txt
+*_test.txt
+*_DRAFT.md
+*_WIP.md
+
+# OS files
+.DS_Store
+Thumbs.db

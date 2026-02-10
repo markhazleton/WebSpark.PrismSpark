@@ -1,0 +1,68 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better analysis
+      
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore WebSpark.PrismSpark.sln
+      
+      - name: Build solution
+        run: dotnet build WebSpark.PrismSpark.sln --no-restore --configuration Release
+      
+      - name: Run tests
+        run: dotnet test WebSpark.PrismSpark.sln --no-build --configuration Release --verbosity normal --logger "trx;LogFileName=test-results.trx"
+      
+      - name: Publish test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: MSTest Results
+          path: '**/test-results.trx'
+          reporter: dotnet-trx
+          fail-on-error: true
+      
+      - name: Check for nullable warnings
+        run: dotnet build WebSpark.PrismSpark.sln --no-restore --configuration Release /warnaserror:nullable
+
+  # Multi-platform validation (optional but recommended)
+  cross-platform-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      
+      - name: Restore dependencies
+        run: dotnet restore WebSpark.PrismSpark.sln
+      
+      - name: Build solution
+        run: dotnet build WebSpark.PrismSpark.sln --no-restore --configuration Release
+      
+      - name: Run tests
+        run: dotnet test WebSpark.PrismSpark.sln --no-build --configuration Release --verbosity normal
