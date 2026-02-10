@@ -85,7 +85,7 @@ public class Markup : IGrammarDefinition
                                     ["punctuation"] = new GrammarToken[]
                                     {
                                         new(@"^=", alias: new[] { "attr-equals" }),
-                                        new("\"|'"),
+                                        new(@"^(\s*)[""']|[""']$", lookbehind: true),
                                     }
                                 })
                         },

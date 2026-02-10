@@ -1203,6 +1203,11 @@ public class Java : IGrammarDefinition
 
         new(new Regex(@"(^|[^.])(?:<<=?|>>>?=?|->|--|\+\+|&&|\|\||::|[?:~]|[-+*/%&|^!=<>]=?)", RegexOptions.Compiled | RegexOptions.Multiline), lookbehind: true, greedy: false),
     };
+    grammar["constant"] = new GrammarToken[]
+    {
+
+        new(@"\b[A-Z][A-Z_\d]+\b", lookbehind: false, greedy: false),
+    };
     grammar["punctuation"] = new GrammarToken[]
     {
 

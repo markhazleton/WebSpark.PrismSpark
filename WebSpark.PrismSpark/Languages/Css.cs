@@ -20,7 +20,7 @@ public class Css : IGrammarDefinition
             ["comment"] = new GrammarToken[] { new(@"\/\*[\s\S]*?\*\/") },
             ["atrule"] = new GrammarToken[]
             {
-                new(@"@[\w-](?:[^;{\s]|\s+(?![\s{]))*(?:;|(?=\s*\{))",
+                new(new Regex(@"@[\w-](?:[^;{\s""']|\s+(?!\s)|" + stringPattern + @")*?(?:;|(?=\s*\{))", RegexOptions.Compiled),
                     inside: new Grammar
                     {
                         ["rule"] = new GrammarToken[] { new(@"^@[\w-]+") },

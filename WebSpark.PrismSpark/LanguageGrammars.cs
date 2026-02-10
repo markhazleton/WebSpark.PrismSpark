@@ -29,7 +29,7 @@ public static class LanguageGrammars
         AddDefinition<Yaml>("yaml", "yml");
         AddDefinition<Css>("css");
         AddDefinition<Lua>("lua");
-        AddDefinition<Bash>("bash", "shell");
+        AddDefinition<Bash>("bash", "sh", "shell");
         AddDefinition<Batch>("batch", "cmd");
         AddDefinition<Cpp>("cpp", "c++");
         AddDefinition<Go>("go");
