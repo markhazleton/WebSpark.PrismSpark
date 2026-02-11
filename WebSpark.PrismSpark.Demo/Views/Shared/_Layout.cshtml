@@ -1,5 +1,6 @@
 @using WebSpark.Bootswatch.Services
 @using WebSpark.Bootswatch.Helpers
+@using System.Linq
 @inject StyleCache StyleCache
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="@(BootswatchThemeHelper.GetCurrentColorMode(Context))">
@@ -67,7 +68,27 @@
     </div>
     <footer class="border-top footer text-muted bg-secondary">
         <div class="container">
-            &copy; 2025 - WebSpark.PrismSpark.Demo - <a href="https://markhazleton.com">MarkHazleton.com</a>
+            <div class="row py-3">
+                <div class="col-md-6">
+                    &copy; 2025 - <a href="https://markhazleton.com" class="text-white" target="_blank" rel="noopener noreferrer">Mark Hazleton</a>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="https://github.com/markhazleton/WebSpark.PrismSpark" class="text-white me-3" target="_blank" rel="noopener noreferrer">
+                        <i class="bi bi-github"></i> GitHub
+                    </a>
+                    @{
+                        var assembly = typeof(Program).Assembly;
+                        var version = assembly.GetName().Version?.ToString(3) ?? "1.0.0";
+                        var buildDateAttr = assembly.GetCustomAttributes(typeof(System.Reflection.AssemblyMetadataAttribute), false)
+                            .Cast<System.Reflection.AssemblyMetadataAttribute>()
+                            .FirstOrDefault(a => a.Key == "BuildDate");
+                        var buildDate = buildDateAttr?.Value ?? "N/A";
+                    }
+                    <span class="text-white-50">
+                        v@(version) | Build: @(buildDate)
+                    </span>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

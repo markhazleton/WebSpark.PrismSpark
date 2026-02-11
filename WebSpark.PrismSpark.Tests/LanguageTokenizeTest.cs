@@ -38,7 +38,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Cpp, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("csharp")]
     // [DataRow("csharp!+xml-doc")]
     public void test_CSharp_features_ok(string testCase)
@@ -50,7 +50,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.CSharp, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("comment_feature")]
     [DataRow("page-directive_feature")]
     public void test_AspNet_features_ok(string testCase)
@@ -59,7 +59,7 @@ public class LanguageTokenizeTest
         TestHelper.RunTestCaseFromFile(LanguageGrammars.AspNet, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("directive_feature")]
     public void test_CSharp_AspNet_features_ok(string testCase)
     {
@@ -108,7 +108,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Markup, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("markup!+css")]
     [DataRow("markup!+css+javascript")]
     [DataRow("markup!+javascript")]
@@ -172,7 +172,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Yaml, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("css")]
     public void test_Css_all_features_ok(string testCase)
     {
@@ -183,7 +183,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Css, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("lua")]
     public void test_Lua_all_features_ok(string testCase)
     {
@@ -194,7 +194,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Lua, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("bash")]
     public void test_Bash_all_features_ok(string testCase)
     {
@@ -205,7 +205,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Bash, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("batch")]
     public void test_Batch_all_features_ok(string testCase)
     {
@@ -216,7 +216,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Batch, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("go")]
     public void test_Go_all_features_ok(string testCase)
     {
@@ -227,7 +227,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Go, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("rust")]
     public void test_Rust_all_features_ok(string testCase)
     {
@@ -238,7 +238,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Rust, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("python")]
     public void test_Python_all_features_ok(string testCase)
     {
@@ -249,7 +249,7 @@ public class LanguageTokenizeTest
             TestHelper.RunTestCaseFromFile(LanguageGrammars.Python, testFile);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("java")]
     public void test_Java_all_features_ok(string testCase)
     {

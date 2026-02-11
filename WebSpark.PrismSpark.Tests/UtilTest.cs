@@ -20,7 +20,7 @@ public class UtilTest
         Assert.AreEqual(37, match.Index);
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("abc", 0, "abc")]
     [DataRow("abc", 1, "bc")]
     [DataRow("abc", 2, "c")]
@@ -31,7 +31,7 @@ public class UtilTest
         Assert.AreEqual(expected, Util.Slice(str, startIndex));
     }
 
-    [DataTestMethod]
+    [TestMethod]
     [DataRow("abc", 0, 0, "")]
     [DataRow("abc", 1, 2, "b")]
     [DataRow("abc", 2, 3, "c")]
