@@ -25,9 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Markdig" Version="0.45.0" />
+    <PackageReference Include="Markdig" Version="1.1.3" />
+    <PackageReference Include="OpenTelemetry.Api" Version="1.15.3" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
     <PackageReference Include="WebSpark.Bootswatch" Version="1.34.0" />
-    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.2.0" />
+    <PackageReference Include="WebSpark.HttpClientUtility" Version="2.5.0" />
   </ItemGroup>
 
   <ItemGroup>

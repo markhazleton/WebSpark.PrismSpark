@@ -1,9 +1,22 @@
 # PrismSpark
 
+**Live Site**: [https://prism.makeboldspark.com/](https://prism.makeboldspark.com/)
+
 A modern, high-performance C#/.NET port of [PrismJS](https://github.com/PrismJS/prism) for advanced syntax highlighting, theming, and extensibility.
 
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+---
+
+## About
+
+PrismSpark is a modern, high-performance C#/.NET port of [PrismJS](https://prismjs.com) that delivers advanced syntax highlighting, theming, and extensibility for .NET web applications. It supports 24 programming languages, a full plugin system, built-in and custom themes, hooks, and async/caching APIs — all consumable from ASP.NET Core MVC or any .NET 10 project.
+
+The live demo is available at [https://prism.makeboldspark.com/](https://prism.makeboldspark.com/).
+
+> Built by [Mark Hazleton](https://markhazleton.com) — Mark Hazleton, Solutions Architect
+> PrismSpark is part of the [Make Bold Spark](https://makeboldspark.com) portfolio of technical demonstrations.
 
 ---
 
